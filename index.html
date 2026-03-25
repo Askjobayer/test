@@ -87,10 +87,7 @@
         .hero-content span { color: var(--accent-blue); }
         .hero-content p { font-size: 1.05rem; color: var(--text-dim); max-width: 480px; margin-bottom: 25px; }
         
-        /* Main Image & Icon Anchors */
         .hero-image-container { flex: 1; display: flex; justify-content: center; align-items: center; z-index: 2; }
-        
-        /* New Wrapper ensures icons stay tightly hugged to the image */
         .image-wrapper { position: relative; display: inline-block; }
         
         .main-img {
@@ -117,7 +114,6 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
 
-        /* Anchored positions hugging the image */
         .float-icon { position: absolute; width: 55px; height: 55px; border-radius: 16px; font-size: 1.5rem; z-index: 3; animation: float 6s ease-in-out infinite; }
         .icon-ae { color: #d6d6ff; background-color: rgba(0, 0, 91, 0.4); text-shadow: 0 0 10px #9999ff; top: 5%; left: -15%; animation-delay: 0s; }
         .icon-pr { color: #fbd6ff; background-color: rgba(43, 0, 71, 0.4); text-shadow: 0 0 10px #ea77ff; top: 40%; right: -15%; animation-delay: 0.5s; }
@@ -132,16 +128,29 @@
         .thread-track h2 { font-size: 1rem; color: var(--text-dim); opacity: 0.5; margin: 0 30px; text-transform: uppercase; white-space: nowrap; }
         @keyframes threadScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* --- Showreel --- */
+        /* --- Showreel (PORTRAIT / REEL SIZE) --- */
         .showreel { text-align: center; background: #010409; }
         .title-sub { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 5px; display: block; font-weight: 600;}
-        .slider-wrapper {
-            width: 100%; max-width: 900px; margin: 20px auto; position: relative; border-radius: 16px; overflow: hidden;
-            aspect-ratio: 16/9; border: 1px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.5); background: #000;
+        
+        .showreel-video-wrapper {
+            width: 100%; 
+            max-width: 350px; /* Perfect width for portrait video on desktop */
+            margin: 30px auto 0; 
+            position: relative; 
+            border-radius: 20px; /* Rounded corners */
+            overflow: hidden;
+            aspect-ratio: 9/16; /* Forces Portrait/Reel proportion (e.g. 1080x1920) */
+            border: 2px solid rgba(255, 255, 255, 0.3); /* Light color stroke */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 30px rgba(56, 189, 248, 0.1); /* Subtle glow */
+            background: #000;
         }
-        .video-slider { display: flex; height: 100%; transition: transform 0.6s cubic-bezier(0.64, 0.04, 0.35, 1); }
-        .video-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
-        .video-slide iframe, .video-slide img { width: 100%; height: 100%; border: none; object-fit: cover; }
+        
+        .showreel-video-wrapper video {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* Ensures video fills container without stretching */
+            display: block;
+        }
 
         /* --- Software Stack --- */
         .software-grid-pro { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
@@ -182,7 +191,6 @@
         }
         .pricing-card:hover { transform: translateY(-10px); border-color: var(--primary-blue); box-shadow: 0 15px 40px rgba(37,99,235,0.15); }
         
-        /* Advance Package Highlight */
         .pricing-card.popular {
             border-color: var(--primary-blue); position: relative;
             background: linear-gradient(180deg, rgba(37,99,235,0.1) 0%, rgba(15,23,42,0.6) 100%);
@@ -232,7 +240,6 @@
             .main-img { max-width: 240px; }
             .float-icon { width: 40px; height: 40px; font-size: 1.1rem; border-radius: 10px; }
             
-            /* Tweak anchored icons slightly for smaller mobile wrapper */
             .icon-ae { left: -10%; }
             .icon-pr { right: -10%; }
             .icon-ps { left: -5%; }
@@ -268,7 +275,6 @@
     </header>
 
     <section class="hero" id="home">
-        <!-- Motion Graphics Background Elements -->
         <div class="motion-bg">
             <div class="m-el m-cloud"><i class="fas fa-cloud"></i></div>
             <div class="m-el m-play"><i class="fas fa-play"></i></div>
@@ -287,7 +293,6 @@
         </div>
 
         <div class="hero-image-container">
-            <!-- New Wrapper to tightly anchor icons to the image -->
             <div class="image-wrapper">
                 <img src="jobayer.jpg" alt="Jobayer Hossan" class="main-img" onerror="this.src='https://images.pexels.com/photos/35132322/pexels-photo-35132322.jpeg'">
                 
@@ -306,23 +311,19 @@
             <h2>Sunnahloy</h2><h2>Shopelor</h2><h2>Khoroch.app</h2>
             <h2>Salman Munna</h2><h2>Kahf</h2><h2>Kahf Kids</h2>
             <h2>Breakdown Bangladesh</h2><h2>Techaloy</h2><h2>Nasheed</h2><h2>Halal Beats</h2>
-            <!-- Duplicated for loop -->
             <h2>Sunnahloy</h2><h2>Shopelor</h2><h2>Khoroch.app</h2>
         </div>
     </div>
 
-    <!-- Showreel Section -->
+    <!-- Showreel Section (PORTRAIT/REEL UPDATED) -->
     <section class="section-padding showreel" id="showreel">
         <span class="title-sub">My Production</span>
         <h2 style="font-size: 2rem;">2026 <span>Showreel</span></h2>
-        <div class="slider-wrapper">
-            <div class="video-slider" id="showreelSlider">
-                <div class="video-slide"><iframe src="https://www.youtube.com/embed/LXb3EKWsInQ?si=k1" allowfullscreen></iframe></div>
-                <div class="video-slide"><iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe></div>
-                <div class="video-slide"><img src="https://images.pexels.com/photos/2912996/pexels-photo-2912996.jpeg" alt="Thumbnail"></div>
-            </div>
+        
+        <!-- Updated Video Element -->
+        <div class="showreel-video-wrapper">
+            <video src="Jobayer Hossan.mp4" autoplay loop muted playsinline></video>
         </div>
-        <p style="color: var(--text-dim); font-size: 0.8rem;">(Hover to pause the slider)</p>
     </section>
 
     <!-- Software Experiences -->
@@ -394,7 +395,7 @@
         </div>
     </section>
 
-    <!-- NEW: PRICING SECTION -->
+    <!-- PRICING SECTION -->
     <section class="section-padding pricing" id="pricing">
         <div style="text-align: center;">
             <span class="title-sub">Investment</span>
@@ -402,7 +403,6 @@
         </div>
         
         <div class="pricing-grid">
-            <!-- Basic Package -->
             <div class="pricing-card">
                 <h3>Basic Package</h3>
                 <div class="price">$50<span> / video</span></div>
@@ -416,7 +416,6 @@
                 <a href="#contact" class="btn btn-outline btn-block">Choose Plan</a>
             </div>
 
-            <!-- Advance Package (Highlighted) -->
             <div class="pricing-card popular">
                 <div class="badge">Most Popular</div>
                 <h3>Advance Package</h3>
@@ -431,7 +430,6 @@
                 <a href="#contact" class="btn btn-primary btn-block">Choose Plan</a>
             </div>
 
-            <!-- Premium Package -->
             <div class="pricing-card">
                 <h3>Premium Package</h3>
                 <div class="price">$300<span> / project</span></div>
@@ -447,17 +445,14 @@
         </div>
     </section>
 
-    <!-- WORKING Contact Section -->
+    <!-- Contact Section -->
     <section class="section-padding" id="contact">
         <span class="title-sub">Get In Touch</span>
         <h2 style="font-size: 2rem; margin-bottom: 25px;">Let's Talk <span>Project</span></h2>
         
         <div class="contact-wrapper">
             <div class="contact-form">
-                <!-- FORMSUBMIT Backend -> Securely sends emails to you -->
                 <form action="https://formsubmit.co/hello.jobayerhossan@gmail.com" method="POST">
-                    
-                    <!-- Formsubmit Configurations -->
                     <input type="hidden" name="_subject" value="New Inquiry from Portfolio Website!">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
@@ -553,33 +548,6 @@
             });
         });
 
-        // --- Automatic Slider with Hover-to-Pause ---
-        function setupSlider(sliderId) {
-            const slider = document.getElementById(sliderId);
-            if(!slider) return;
-            const container = slider.parentElement;
-            const slideCount = slider.children.length;
-            let current = 0;
-            let slideInterval;
-
-            function startSlider() {
-                slideInterval = setInterval(() => {
-                    current++;
-                    if (current >= slideCount) current = 0;
-                    slider.style.transform = `translateX(-${current * 100}%)`;
-                }, 4000);
-            }
-            function stopSlider() { clearInterval(slideInterval); }
-
-            container.addEventListener('mouseenter', stopSlider);
-            container.addEventListener('mouseleave', startSlider);
-            container.addEventListener('touchstart', stopSlider);
-            container.addEventListener('touchend', startSlider);
-            startSlider();
-        }
-
-        setupSlider('showreelSlider');
-
         // --- Smooth Scroll Animations ---
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
@@ -591,7 +559,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.soft-card-pro, .grid-video-item, .pricing-card').forEach(el => {
+        document.querySelectorAll('.showreel-video-wrapper, .soft-card-pro, .grid-video-item, .pricing-card').forEach(el => {
             el.style.opacity = "0";
             el.style.transform = "translateY(30px)";
             el.style.transition = "all 0.8s ease-out";
