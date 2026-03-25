@@ -28,32 +28,33 @@
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-white);
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevents mobile sideways scrolling bugs */
             line-height: 1.6;
+            position: relative;
         }
 
         /* --- Custom Scrollbar --- */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 10px; }
 
         /* --- Reusable Components --- */
-        .section-padding { padding: 100px 8%; }
+        .section-padding { padding: 80px 8%; }
         .btn {
-            padding: 12px 30px; border-radius: 50px; font-weight: 600;
+            padding: 10px 25px; border-radius: 50px; font-weight: 600; font-size: 0.9rem;
             text-decoration: none; display: inline-block; transition: var(--transition);
-            cursor: pointer; border: none; font-family: 'Outfit';
+            cursor: pointer; border: none; font-family: 'Outfit'; z-index: 10; position: relative;
         }
         .btn-primary { background: var(--primary-blue); color: white; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3); }
         .btn-primary:hover { transform: translateY(-3px); background: var(--accent-blue); }
-        .btn-outline { border: 2px solid var(--primary-blue); color: white; margin-left: 15px; }
+        .btn-outline { border: 2px solid var(--primary-blue); color: white; margin-left: 10px; }
         .btn-outline:hover { background: var(--primary-blue); }
 
         /* --- Navigation --- */
         header {
             position: fixed; width: 100%; top: 0; z-index: 1000;
-            padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 15px 8%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
         }
         .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; z-index: 1001; }
@@ -64,190 +65,182 @@
         nav a:hover { color: var(--accent-blue); }
         .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: white; z-index: 1001; }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section & Motion Graphics --- */
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: space-between;
-            padding: 100px 8% 50px; position: relative; gap: 50px;
-        }
-        .hero-content { flex: 1; z-index: 2; }
-        .hero-content h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; }
-        .hero-content span { color: var(--accent-blue); }
-        
-        .hero-image-container { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; }
-        .main-img {
-            width: 100%; max-width: 400px; aspect-ratio: 4/5; object-fit: cover; border-radius: 40px;
-            border: 2px solid var(--border); position: relative; z-index: 2;
-            box-shadow: 0 0 50px rgba(37, 99, 235, 0.2);
+            padding: 120px 8% 50px; position: relative; gap: 40px; overflow: hidden;
         }
 
-        /* --- Liquid Glass Icons --- */
+        /* Animated Background Elements (Desktop & Android Friendly) */
+        .motion-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
+        .m-el { position: absolute; color: rgba(56, 189, 248, 0.04); }
+        
+        .m-cloud { font-size: 12rem; top: 10%; right: -5%; animation: cloud-drift 40s linear infinite; }
+        .m-play { font-size: 8rem; top: 20%; left: 5%; animation: spin-slow 25s linear infinite; }
+        .m-cut { font-size: 6rem; bottom: 15%; left: 30%; animation: float-up-down 6s ease-in-out infinite; }
+        .m-film { font-size: 10rem; bottom: 10%; right: 15%; animation: float-up-down 8s ease-in-out infinite reverse; transform: rotate(-15deg); }
+
+        @keyframes cloud-drift { 0% { transform: translateX(200px); } 100% { transform: translateX(-100vw); } }
+        @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+        @keyframes float-up-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+        .hero-content { flex: 1.2; z-index: 2; }
+        .hero-content h1 { font-size: 3.8rem; line-height: 1.1; margin-bottom: 15px; }
+        .hero-content span { color: var(--accent-blue); }
+        .hero-content p { font-size: 1.05rem; color: var(--text-dim); max-width: 480px; margin-bottom: 25px; }
+        
+        /* Main Image Container - Smaller & Animated */
+        .hero-image-container { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; z-index: 2; }
+        
+        .main-img {
+            width: 100%; max-width: 280px; /* Highly requested: smaller size */
+            aspect-ratio: 4/5; object-fit: cover; border-radius: 30px;
+            border: 2px solid rgba(56, 189, 248, 0.4); position: relative; z-index: 2;
+            animation: main-img-float 5s ease-in-out infinite; /* Floating & Glowing Animation */
+        }
+
+        @keyframes main-img-float {
+            0%, 100% { transform: translateY(0px); box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2); }
+            50% { transform: translateY(-15px); box-shadow: 0 20px 50px rgba(56, 189, 248, 0.6); }
+        }
+
+        /* --- Liquid Glass Adobe Icons --- */
         .glass-icon {
             display: inline-flex; align-items: center; justify-content: center;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-weight: 700; letter-spacing: -1px; user-select: none;
-            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0));
-            backdrop-filter: blur(12px) saturate(150%); -webkit-backdrop-filter: blur(12px) saturate(150%);
-            border-top: 1px solid rgba(255, 255, 255, 0.4); border-left: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.3); border-left: 1px solid rgba(255, 255, 255, 0.1);
             border-bottom: 1px solid rgba(0, 0, 0, 0.2); border-right: 1px solid rgba(0, 0, 0, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 4px 15px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
 
-        .float-icon { position: absolute; width: 75px; height: 75px; border-radius: 22px; font-size: 2rem; z-index: 3; animation: float 6s ease-in-out infinite; }
-        .icon-ae { color: #d6d6ff; background-color: rgba(0, 0, 91, 0.4); text-shadow: 0 0 12px rgba(153, 153, 255, 1); top: 5%; left: -5%; animation-delay: 0s; }
-        .icon-pr { color: #fbd6ff; background-color: rgba(43, 0, 71, 0.4); text-shadow: 0 0 12px rgba(234, 119, 255, 1); top: 35%; right: -10%; animation-delay: 0.5s; }
-        .icon-ps { color: #baecff; background-color: rgba(0, 30, 54, 0.4); text-shadow: 0 0 12px rgba(49, 168, 255, 1); bottom: 10%; left: 0%; animation-delay: 1s; }
-        .icon-ai { color: #ffebcc; background-color: rgba(51, 0, 0, 0.4); text-shadow: 0 0 12px rgba(255, 154, 0, 1); top: -10%; right: 10%; animation-delay: 1.5s; }
-        .icon-an { color: #ffcccc; background-color: rgba(47, 0, 0, 0.4); text-shadow: 0 0 12px rgba(255, 10, 27, 1); bottom: 15%; right: -5%; animation-delay: 2s; }
-        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-15px) rotate(4deg); } }
+        .float-icon { position: absolute; width: 55px; height: 55px; border-radius: 16px; font-size: 1.5rem; z-index: 3; animation: float 6s ease-in-out infinite; }
+        .icon-ae { color: #d6d6ff; background-color: rgba(0, 0, 91, 0.4); text-shadow: 0 0 10px #9999ff; top: 10%; left: -5%; animation-delay: 0s; }
+        .icon-pr { color: #fbd6ff; background-color: rgba(43, 0, 71, 0.4); text-shadow: 0 0 10px #ea77ff; top: 40%; right: -10%; animation-delay: 0.5s; }
+        .icon-ps { color: #baecff; background-color: rgba(0, 30, 54, 0.4); text-shadow: 0 0 10px #31a8ff; bottom: 5%; left: 5%; animation-delay: 1s; }
+        .icon-ai { color: #ffebcc; background-color: rgba(51, 0, 0, 0.4); text-shadow: 0 0 10px #ff9a00; top: -5%; right: 10%; animation-delay: 1.5s; }
+        .icon-an { color: #ffcccc; background-color: rgba(47, 0, 0, 0.4); text-shadow: 0 0 10px #ff0a1b; bottom: 20%; right: -5%; animation-delay: 2s; }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-10px) rotate(3deg); } }
 
         /* --- Client Thread Slider --- */
-        .client-thread { background: rgba(37, 99, 235, 0.05); padding: 30px 0; overflow: hidden; border-y: 1px solid var(--border); }
+        .client-thread { background: rgba(37, 99, 235, 0.03); padding: 20px 0; overflow: hidden; border-y: 1px solid var(--border); }
         .thread-track { display: flex; width: max-content; animation: threadScroll 25s linear infinite; }
-        .thread-track h2 { font-size: 1.2rem; color: var(--text-dim); opacity: 0.4; margin: 0 30px; text-transform: uppercase; white-space: nowrap; }
+        .thread-track h2 { font-size: 1rem; color: var(--text-dim); opacity: 0.5; margin: 0 30px; text-transform: uppercase; white-space: nowrap; }
         @keyframes threadScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
         /* --- Showreel --- */
         .showreel { text-align: center; background: #010409; }
-        .title-sub { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; margin-bottom: 10px; display: block; font-weight: 600;}
+        .title-sub { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 5px; display: block; font-weight: 600;}
         
         .slider-wrapper {
-            width: 100%; max-width: 1100px; margin: 40px auto; position: relative; border-radius: 20px; overflow: hidden;
-            aspect-ratio: 16/9; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: #000;
+            width: 100%; max-width: 900px; margin: 20px auto; position: relative; border-radius: 16px; overflow: hidden;
+            aspect-ratio: 16/9; border: 1px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.5); background: #000;
         }
         .video-slider { display: flex; height: 100%; transition: transform 0.6s cubic-bezier(0.64, 0.04, 0.35, 1); }
         .video-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
         .video-slide iframe, .video-slide img { width: 100%; height: 100%; border: none; object-fit: cover; }
 
-        /* --- REDESIGNED: Software Stack (Professional Layout) --- */
+        /* --- REDESIGNED: Ultra Compact Software Stack --- */
         .software-grid-pro {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Very compact */
+            gap: 15px;
         }
         
         .soft-card-pro {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 24px;
-            transition: var(--transition);
-            position: relative;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            overflow: hidden;
+            display: flex; align-items: center; gap: 12px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            padding: 15px; border-radius: 12px; transition: var(--transition);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
         }
         
         .soft-card-pro:hover {
-            border-color: rgba(56, 189, 248, 0.5); /* Glows with accent blue */
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.15);
+            border-color: rgba(56, 189, 248, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
             background: rgba(15, 23, 42, 0.8);
         }
 
         .soft-card-pro .card-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 18px;
-            font-size: 1.8rem;
-            flex-shrink: 0;
+            width: 45px; height: 45px; border-radius: 10px; font-size: 1.2rem; flex-shrink: 0;
         }
 
         .soft-content { flex: 1; }
-        
-        .soft-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        
-        .soft-header h3 { font-size: 1.4rem; font-weight: 600; letter-spacing: 0.5px; color: var(--text-white); }
-        .soft-percent { color: var(--accent-blue); font-weight: 800; font-size: 1.1rem; }
-        
-        .soft-content p {
-            font-size: 0.95rem;
-            color: var(--text-dim);
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
+        .soft-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+        .soft-header h3 { font-size: 1rem; font-weight: 600; color: var(--text-white); }
+        .soft-percent { color: var(--accent-blue); font-weight: 800; font-size: 0.85rem; }
+        .soft-content p { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 6px; line-height: 1.2; }
 
-        .progress-bg-pro {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .progress-fill-pro {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
-        }
+        .progress-bg-pro { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
+        .progress-fill-pro { height: 100%; background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue)); border-radius: 10px; }
 
         /* --- INTERACTIVE 4-VIDEO GRID EXPERTISE SECTION --- */
-        .skills-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 40px; margin-bottom: 40px; }
+        .skills-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 25px; margin-bottom: 30px; }
         .skill-tag {
-            padding: 12px 25px; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-            border-radius: 50px; font-size: 0.9rem; transition: var(--transition); cursor: pointer;
+            padding: 8px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            border-radius: 50px; font-size: 0.85rem; transition: var(--transition); cursor: pointer;
             color: white; font-family: 'Outfit', sans-serif; outline: none; font-weight: 600;
         }
-        .skill-tag:hover { background: rgba(37, 99, 235, 0.3); transform: translateY(-3px); }
+        .skill-tag:hover { background: rgba(37, 99, 235, 0.3); transform: translateY(-2px); }
         .skill-tag.active { background: var(--primary-blue); border-color: var(--primary-blue); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4); transform: scale(1.05); }
 
-        .expertise-video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; max-width: 1100px; margin: 0 auto; }
-        .grid-video-item { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: var(--transition); }
+        .expertise-video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; max-width: 900px; margin: 0 auto; }
+        .grid-video-item { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: var(--transition); }
         .grid-video-item iframe { width: 100%; height: 100%; border: none; }
 
         /* --- Contact Section --- */
-        .contact-wrapper { display: flex; gap: 50px; background: rgba(15, 23, 42, 0.6); border-radius: 30px; padding: 50px; border: 1px solid var(--border); backdrop-filter: blur(10px); }
+        .contact-wrapper { display: flex; gap: 30px; background: rgba(15, 23, 42, 0.6); border-radius: 20px; padding: 30px; border: 1px solid var(--border); backdrop-filter: blur(10px); }
         .contact-form { flex: 1.5; }
-        .contact-info { flex: 1; border-left: 1px solid var(--border); padding-left: 50px; }
-        .input-group { margin-bottom: 20px; }
-        input, textarea { width: 100%; padding: 15px; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 12px; color: white; outline: none; font-family: 'Outfit'; }
+        .contact-info { flex: 1; border-left: 1px solid var(--border); padding-left: 30px; }
+        .input-group { margin-bottom: 12px; }
+        input, textarea { width: 100%; padding: 12px; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 8px; color: white; outline: none; font-family: 'Outfit'; font-size: 0.9rem; }
         input:focus, textarea:focus { border-color: var(--accent-blue); }
-        .info-item { margin-bottom: 30px; }
-        .info-item h4 { color: var(--accent-blue); margin-bottom: 5px; font-size: 0.9rem; }
-        .info-item p { font-size: 1.1rem; }
+        .info-item { margin-bottom: 20px; }
+        .info-item h4 { color: var(--accent-blue); margin-bottom: 3px; font-size: 0.8rem; }
+        .info-item p { font-size: 0.95rem; }
 
-        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); color: var(--text-dim); }
+        footer { text-align: center; padding: 30px 20px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.9rem; }
 
-        /* --- MOBILE RESPONSIVE FIXES --- */
+        /* --- 100% MOBILE & ANDROID FRIENDLY FIXES --- */
         @media (max-width: 968px) {
             .section-padding { padding: 60px 5%; }
             .menu-toggle { display: block; }
+            
             nav { position: absolute; top: 100%; left: 0; width: 100%; background: #020617; border-bottom: 1px solid var(--border); padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
             nav.active { max-height: 400px; padding: 20px 0; }
-            nav ul { flex-direction: column; gap: 20px; }
+            nav ul { flex-direction: column; gap: 15px; }
             nav ul li { width: 100%; text-align: center; }
-            nav a.btn { display: inline-block; margin-top: 10px; }
+            nav a.btn { display: inline-block; margin-top: 5px; }
 
-            .hero { flex-direction: column; text-align: center; gap: 30px; padding-top: 120px; }
-            .hero-content h1 { font-size: 3rem; }
-            .hero-content .btn-outline { margin-left: 0; margin-top: 15px; display: inline-block; }
-            .hero-image-container { width: 100%; padding: 0 20px; }
-            .float-icon { width: 55px; height: 55px; font-size: 1.5rem; border-radius: 14px; }
-            .icon-ae { left: 0; top: 0; }
-            .icon-pr { right: 0; top: 20%; }
-            .icon-ps { left: 5%; bottom: 5%; }
-            .icon-ai { right: 5%; top: -5%; }
-            .icon-an { right: 0; bottom: 15%; }
+            .hero { flex-direction: column; text-align: center; gap: 30px; padding-top: 100px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { margin: 0 auto 20px auto; font-size: 0.95rem; }
+            .hero-content .btn-outline { margin-left: 0; margin-top: 10px; display: inline-block; }
+            
+            .hero-image-container { width: 100%; padding: 0; }
+            .main-img { max-width: 240px; } /* Perfectly small for Android/iPhone */
+            
+            .float-icon { width: 40px; height: 40px; font-size: 1.1rem; border-radius: 10px; }
+            .icon-ae { left: 5%; top: 0; }
+            .icon-pr { right: 5%; top: 20%; }
+            .icon-ps { left: 10%; bottom: 5%; }
+            .icon-ai { right: 10%; top: -5%; }
+            .icon-an { right: 5%; bottom: 15%; }
 
-            /* Software Stack Mobile */
-            .software-grid-pro { grid-template-columns: 1fr; }
-            .soft-card-pro { flex-direction: column; text-align: center; gap: 15px; padding: 25px; }
-            .soft-header { flex-direction: column; gap: 5px; }
+            /* Calm the background animations for mobile performance */
+            .m-cloud { font-size: 8rem; top: 5%; opacity: 0.5; }
+            .m-play { font-size: 5rem; top: 10%; }
+            .m-cut { display: none; }
+            .m-film { font-size: 6rem; bottom: 5%; opacity: 0.5; }
 
-            /* Grid Video Mobile Fallback */
-            .expertise-video-grid { grid-template-columns: 1fr; }
+            .software-grid-pro { grid-template-columns: 1fr; gap: 12px; }
+            .expertise-video-grid { grid-template-columns: 1fr; gap: 12px; } /* Stacks 4 videos perfectly on mobile */
 
-            .contact-wrapper { flex-direction: column; padding: 30px 20px; }
-            .contact-info { border-left: none; padding-left: 0; padding-top: 30px; border-top: 1px solid var(--border); }
-            h2 { font-size: 2rem !important; }
+            .contact-wrapper { flex-direction: column; padding: 20px; }
+            .contact-info { border-left: none; padding-left: 0; padding-top: 20px; border-top: 1px solid var(--border); }
+            h2 { font-size: 1.8rem !important; margin-bottom: 20px !important; }
         }
     </style>
 </head>
@@ -262,24 +255,34 @@
                 <li><a href="#showreel">Showreel</a></li>
                 <li><a href="#work">Skills</a></li>
                 <li><a href="#expertise">Expertise</a></li>
-                <li><a href="#contact" class="btn btn-primary" style="padding: 8px 25px;">Hire Me</a></li>
+                <li><a href="#contact" class="btn btn-primary">Hire Me</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero" id="home">
+        <!-- Motion Graphics Background Elements -->
+        <div class="motion-bg">
+            <div class="m-el m-cloud"><i class="fas fa-cloud"></i></div>
+            <div class="m-el m-play"><i class="fas fa-play"></i></div>
+            <div class="m-el m-cut"><i class="fas fa-cut"></i></div>
+            <div class="m-el m-film"><i class="fas fa-film"></i></div>
+        </div>
+
         <div class="hero-content">
             <span class="title-sub">Available for Freelance</span>
             <h1>I Create <span>Cinematic</span> Visual Stories.</h1>
             <p>Expert Video Editor & Motion Designer specializing in Documentary, Reels, and UI Animation. Let's make your footage legendary.</p>
-            <div style="margin-top: 40px;">
+            <div>
                 <a href="#contact" class="btn btn-primary">Hire Me Now</a>
                 <a href="Jobayer Hossan CV.pdf" download class="btn btn-outline"><i class="fas fa-download"></i> Download CV</a>
             </div>
         </div>
 
         <div class="hero-image-container">
+            <!-- Main Image -->
             <img src="jobayer.jpg" alt="Jobayer Hossan" class="main-img" onerror="this.src='https://images.pexels.com/photos/35132322/pexels-photo-35132322.jpeg'">
+            <!-- Floating Adobe Logos -->
             <div class="glass-icon float-icon icon-ae" title="After Effects">Ae</div>
             <div class="glass-icon float-icon icon-pr" title="Premiere Pro">Pr</div>
             <div class="glass-icon float-icon icon-ps" title="Photoshop">Ps</div>
@@ -294,7 +297,7 @@
             <h2>Sunnahloy</h2><h2>Shopelor</h2><h2>Khoroch.app</h2>
             <h2>Salman Munna</h2><h2>Kahf</h2><h2>Kahf Kids</h2>
             <h2>Breakdown Bangladesh</h2><h2>Techaloy</h2><h2>Nasheed</h2><h2>Halal Beats</h2>
-            <!-- Duplicated for loop -->
+            <!-- Duplicated for seamless loop -->
             <h2>Sunnahloy</h2><h2>Shopelor</h2><h2>Khoroch.app</h2>
         </div>
     </div>
@@ -302,7 +305,7 @@
     <!-- Showreel Section -->
     <section class="section-padding showreel" id="showreel">
         <span class="title-sub">My Production</span>
-        <h2 style="font-size: 2.5rem;">2026 <span>Showreel</span></h2>
+        <h2 style="font-size: 2rem;">2026 <span>Showreel</span></h2>
         <div class="slider-wrapper">
             <div class="video-slider" id="showreelSlider">
                 <div class="video-slide"><iframe src="https://www.youtube.com/embed/LXb3EKWsInQ?si=k1" allowfullscreen></iframe></div>
@@ -310,61 +313,77 @@
                 <div class="video-slide"><img src="https://images.pexels.com/photos/2912996/pexels-photo-2912996.jpeg" alt="Thumbnail"></div>
             </div>
         </div>
-        <p style="color: var(--text-dim); font-size: 0.9rem;">(Hover to pause the slider)</p>
+        <p style="color: var(--text-dim); font-size: 0.8rem;">(Hover to pause the slider)</p>
     </section>
 
-    <!-- REDESIGNED: Software Experiences -->
+    <!-- ULTRA COMPACT: Software Experiences -->
     <section class="section-padding" id="work">
         <span class="title-sub">Mastery</span>
-        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Software <span>Stack</span></h2>
+        <h2 style="font-size: 2rem; margin-bottom: 25px;">Software <span>Stack</span></h2>
         
         <div class="software-grid-pro">
-            <!-- Card 1 -->
-            <div class="soft-card-pro">
-                <div class="glass-icon card-icon icon-pr">Pr</div>
-                <div class="soft-content">
-                    <div class="soft-header">
-                        <h3>Premiere Pro</h3>
-                        <span class="soft-percent">95%</span>
-                    </div>
-                    <p>Advanced Video Cutting, Multicam & Storytelling</p>
-                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 95%;"></div></div>
-                </div>
-            </div>
-            <!-- Card 2 -->
+            <!-- 1. After Effects (85%) -->
             <div class="soft-card-pro">
                 <div class="glass-icon card-icon icon-ae">Ae</div>
                 <div class="soft-content">
                     <div class="soft-header">
                         <h3>After Effects</h3>
-                        <span class="soft-percent">90%</span>
+                        <span class="soft-percent">85%</span>
                     </div>
-                    <p>High-End VFX, Motion Graphics & Compositing</p>
-                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 90%;"></div></div>
+                    <p>High-End VFX & Motion Graphics</p>
+                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 85%;"></div></div>
                 </div>
             </div>
-            <!-- Card 3 -->
+
+            <!-- 2. Premiere Pro (80%) -->
+            <div class="soft-card-pro">
+                <div class="glass-icon card-icon icon-pr">Pr</div>
+                <div class="soft-content">
+                    <div class="soft-header">
+                        <h3>Premiere Pro</h3>
+                        <span class="soft-percent">80%</span>
+                    </div>
+                    <p>Advanced Video Cutting & Storytelling</p>
+                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 80%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 3. Adobe Animate (70%) -->
             <div class="soft-card-pro">
                 <div class="glass-icon card-icon icon-an">An</div>
                 <div class="soft-content">
                     <div class="soft-header">
                         <h3>Adobe Animate</h3>
+                        <span class="soft-percent">70%</span>
+                    </div>
+                    <p>Fluid 2D Character Rigging & Anim</p>
+                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 70%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 4. Illustrator (80%) -->
+            <div class="soft-card-pro">
+                <div class="glass-icon card-icon icon-ai">Ai</div>
+                <div class="soft-content">
+                    <div class="soft-header">
+                        <h3>Illustrator</h3>
                         <span class="soft-percent">80%</span>
                     </div>
-                    <p>Fluid 2D Character Rigging & Frame Animation</p>
+                    <p>Vector Asset & Character Creation</p>
                     <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 80%;"></div></div>
                 </div>
             </div>
-            <!-- Card 4 -->
+
+            <!-- 5. Photoshop (80%) -->
             <div class="soft-card-pro">
                 <div class="glass-icon card-icon icon-ps">Ps</div>
                 <div class="soft-content">
                     <div class="soft-header">
-                        <h3>Photoshop / AI</h3>
-                        <span class="soft-percent">85%</span>
+                        <h3>Photoshop</h3>
+                        <span class="soft-percent">80%</span>
                     </div>
-                    <p>Layer Management, Masking & Asset Creation</p>
-                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 85%;"></div></div>
+                    <p>Layer Management & Compositing</p>
+                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 80%;"></div></div>
                 </div>
             </div>
         </div>
@@ -373,9 +392,9 @@
     <!-- INTERACTIVE: 4-Video Grid Core Expertise Section -->
     <section class="section-padding" id="expertise" style="text-align: center; background: #010409;">
         <span class="title-sub">Watch My Work</span>
-        <h2 style="font-size: 2.5rem;">Core <span>Expertise</span></h2>
+        <h2 style="font-size: 2rem;">Core <span>Expertise</span></h2>
         
-        <!-- Interactive Buttons. "All" is now default active -->
+        <!-- Interactive Buttons -->
         <div class="skills-container">
             <button class="skill-tag active" data-videos="https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/tgbNymZ7vqY,https://player.vimeo.com/video/137857207,https://www.youtube.com/embed/ScMzIvxBSi4">All</button>
             <button class="skill-tag" data-videos="https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/LXb3EKWsInQ">Documentary</button>
@@ -384,15 +403,11 @@
             <button class="skill-tag" data-videos="https://www.youtube.com/embed/ScMzIvxBSi4,https://www.youtube.com/embed/ScMzIvxBSi4,https://www.youtube.com/embed/ScMzIvxBSi4,https://www.youtube.com/embed/ScMzIvxBSi4">UI Animation</button>
         </div>
 
-        <!-- The 4-Video Grid (Pre-loaded with 1 of each to match the "All" button) -->
+        <!-- The 4-Video Grid -->
         <div class="expertise-video-grid" id="video-grid-container">
-            <!-- Box 1 (Doc) -->
             <div class="grid-video-item"><iframe src="https://www.youtube.com/embed/LXb3EKWsInQ" allowfullscreen></iframe></div>
-            <!-- Box 2 (Reel) -->
             <div class="grid-video-item"><iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe></div>
-            <!-- Box 3 (Motion Graphic) -->
             <div class="grid-video-item"><iframe src="https://player.vimeo.com/video/137857207" allowfullscreen></iframe></div>
-            <!-- Box 4 (Animation) -->
             <div class="grid-video-item"><iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" allowfullscreen></iframe></div>
         </div>
     </section>
@@ -400,7 +415,7 @@
     <!-- Contact Section -->
     <section class="section-padding" id="contact">
         <span class="title-sub">Get In Touch</span>
-        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Let's Talk <span>Project</span></h2>
+        <h2 style="font-size: 2rem; margin-bottom: 25px;">Let's Talk <span>Project</span></h2>
         
         <div class="contact-wrapper">
             <div class="contact-form">
@@ -412,7 +427,7 @@
                         <input type="email" placeholder="Your Email" required>
                     </div>
                     <div class="input-group">
-                        <textarea rows="5" placeholder="Project Description..." required></textarea>
+                        <textarea rows="4" placeholder="Project Description..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
@@ -441,10 +456,10 @@
 
     <footer>
         <p>&copy; 2026 Jobayer Hossan Portfolio. All Rights Reserved by <a href="https://salmanmunna.com" target="_blank" style="color: var(--accent-blue); text-decoration: none;">Salman Munna</a></p>
-        <div style="margin-top: 20px;">
-            <a href="#" style="color: var(--accent-blue); margin: 0 12px; font-size: 1.4rem;"><i class="fab fa-youtube"></i></a>
-            <a href="#" style="color: var(--accent-blue); margin: 0 12px; font-size: 1.4rem;"><i class="fab fa-instagram"></i></a>
-            <a href="#" style="color: var(--accent-blue); margin: 0 12px; font-size: 1.4rem;"><i class="fab fa-linkedin"></i></a>
+        <div style="margin-top: 15px;">
+            <a href="#" style="color: var(--accent-blue); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-youtube"></i></a>
+            <a href="#" style="color: var(--accent-blue); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: var(--accent-blue); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
         </div>
     </footer>
 
