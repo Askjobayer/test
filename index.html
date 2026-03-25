@@ -28,12 +28,11 @@
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-white);
-            overflow-x: hidden; /* Prevents mobile sideways scrolling bugs */
+            overflow-x: hidden;
             line-height: 1.6;
             position: relative;
         }
 
-        /* --- Custom Scrollbar --- */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 10px; }
@@ -49,6 +48,7 @@
         .btn-primary:hover { transform: translateY(-3px); background: var(--accent-blue); }
         .btn-outline { border: 2px solid var(--primary-blue); color: white; margin-left: 10px; }
         .btn-outline:hover { background: var(--primary-blue); }
+        .btn-block { display: block; text-align: center; margin-left: 0; margin-top: 15px; }
 
         /* --- Navigation --- */
         header {
@@ -71,10 +71,8 @@
             padding: 120px 8% 50px; position: relative; gap: 40px; overflow: hidden;
         }
 
-        /* Animated Background Elements (Desktop & Android Friendly) */
         .motion-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
         .m-el { position: absolute; color: rgba(56, 189, 248, 0.04); }
-        
         .m-cloud { font-size: 12rem; top: 10%; right: -5%; animation: cloud-drift 40s linear infinite; }
         .m-play { font-size: 8rem; top: 20%; left: 5%; animation: spin-slow 25s linear infinite; }
         .m-cut { font-size: 6rem; bottom: 15%; left: 30%; animation: float-up-down 6s ease-in-out infinite; }
@@ -89,14 +87,17 @@
         .hero-content span { color: var(--accent-blue); }
         .hero-content p { font-size: 1.05rem; color: var(--text-dim); max-width: 480px; margin-bottom: 25px; }
         
-        /* Main Image Container - Smaller & Animated */
-        .hero-image-container { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; z-index: 2; }
+        /* Main Image & Icon Anchors */
+        .hero-image-container { flex: 1; display: flex; justify-content: center; align-items: center; z-index: 2; }
+        
+        /* New Wrapper ensures icons stay tightly hugged to the image */
+        .image-wrapper { position: relative; display: inline-block; }
         
         .main-img {
-            width: 100%; max-width: 280px; /* Highly requested: smaller size */
+            width: 100%; max-width: 280px; display: block;
             aspect-ratio: 4/5; object-fit: cover; border-radius: 30px;
             border: 2px solid rgba(56, 189, 248, 0.4); position: relative; z-index: 2;
-            animation: main-img-float 5s ease-in-out infinite; /* Floating & Glowing Animation */
+            animation: main-img-float 5s ease-in-out infinite;
         }
 
         @keyframes main-img-float {
@@ -116,12 +117,13 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
 
+        /* Anchored positions hugging the image */
         .float-icon { position: absolute; width: 55px; height: 55px; border-radius: 16px; font-size: 1.5rem; z-index: 3; animation: float 6s ease-in-out infinite; }
-        .icon-ae { color: #d6d6ff; background-color: rgba(0, 0, 91, 0.4); text-shadow: 0 0 10px #9999ff; top: 10%; left: -5%; animation-delay: 0s; }
-        .icon-pr { color: #fbd6ff; background-color: rgba(43, 0, 71, 0.4); text-shadow: 0 0 10px #ea77ff; top: 40%; right: -10%; animation-delay: 0.5s; }
-        .icon-ps { color: #baecff; background-color: rgba(0, 30, 54, 0.4); text-shadow: 0 0 10px #31a8ff; bottom: 5%; left: 5%; animation-delay: 1s; }
-        .icon-ai { color: #ffebcc; background-color: rgba(51, 0, 0, 0.4); text-shadow: 0 0 10px #ff9a00; top: -5%; right: 10%; animation-delay: 1.5s; }
-        .icon-an { color: #ffcccc; background-color: rgba(47, 0, 0, 0.4); text-shadow: 0 0 10px #ff0a1b; bottom: 20%; right: -5%; animation-delay: 2s; }
+        .icon-ae { color: #d6d6ff; background-color: rgba(0, 0, 91, 0.4); text-shadow: 0 0 10px #9999ff; top: 5%; left: -15%; animation-delay: 0s; }
+        .icon-pr { color: #fbd6ff; background-color: rgba(43, 0, 71, 0.4); text-shadow: 0 0 10px #ea77ff; top: 40%; right: -15%; animation-delay: 0.5s; }
+        .icon-ps { color: #baecff; background-color: rgba(0, 30, 54, 0.4); text-shadow: 0 0 10px #31a8ff; bottom: 8%; left: -10%; animation-delay: 1s; }
+        .icon-ai { color: #ffebcc; background-color: rgba(51, 0, 0, 0.4); text-shadow: 0 0 10px #ff9a00; top: -8%; right: 10%; animation-delay: 1.5s; }
+        .icon-an { color: #ffcccc; background-color: rgba(47, 0, 0, 0.4); text-shadow: 0 0 10px #ff0a1b; bottom: 15%; right: -10%; animation-delay: 2s; }
         @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-10px) rotate(3deg); } }
 
         /* --- Client Thread Slider --- */
@@ -133,7 +135,6 @@
         /* --- Showreel --- */
         .showreel { text-align: center; background: #010409; }
         .title-sub { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 5px; display: block; font-weight: 600;}
-        
         .slider-wrapper {
             width: 100%; max-width: 900px; margin: 20px auto; position: relative; border-radius: 16px; overflow: hidden;
             aspect-ratio: 16/9; border: 1px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.5); background: #000;
@@ -142,53 +143,62 @@
         .video-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
         .video-slide iframe, .video-slide img { width: 100%; height: 100%; border: none; object-fit: cover; }
 
-        /* --- REDESIGNED: Ultra Compact Software Stack --- */
-        .software-grid-pro {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Very compact */
-            gap: 15px;
-        }
-        
+        /* --- Software Stack --- */
+        .software-grid-pro { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
         .soft-card-pro {
-            display: flex; align-items: center; gap: 12px;
-            background: var(--bg-card); border: 1px solid var(--border);
-            padding: 15px; border-radius: 12px; transition: var(--transition);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            display: flex; align-items: center; gap: 12px; background: var(--bg-card); border: 1px solid var(--border);
+            padding: 15px; border-radius: 12px; transition: var(--transition); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
         }
-        
-        .soft-card-pro:hover {
-            border-color: rgba(56, 189, 248, 0.5);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
-            background: rgba(15, 23, 42, 0.8);
-        }
-
-        .soft-card-pro .card-icon {
-            width: 45px; height: 45px; border-radius: 10px; font-size: 1.2rem; flex-shrink: 0;
-        }
-
+        .soft-card-pro:hover { border-color: rgba(56, 189, 248, 0.5); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15); background: rgba(15, 23, 42, 0.8); }
+        .soft-card-pro .card-icon { width: 45px; height: 45px; border-radius: 10px; font-size: 1.2rem; flex-shrink: 0; }
         .soft-content { flex: 1; }
         .soft-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
         .soft-header h3 { font-size: 1rem; font-weight: 600; color: var(--text-white); }
         .soft-percent { color: var(--accent-blue); font-weight: 800; font-size: 0.85rem; }
         .soft-content p { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 6px; line-height: 1.2; }
-
         .progress-bg-pro { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill-pro { height: 100%; background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue)); border-radius: 10px; }
 
-        /* --- INTERACTIVE 4-VIDEO GRID EXPERTISE SECTION --- */
+        /* --- INTERACTIVE Video Grid Section --- */
         .skills-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 25px; margin-bottom: 30px; }
         .skill-tag {
-            padding: 8px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-            border-radius: 50px; font-size: 0.85rem; transition: var(--transition); cursor: pointer;
-            color: white; font-family: 'Outfit', sans-serif; outline: none; font-weight: 600;
+            padding: 8px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 50px; 
+            font-size: 0.85rem; transition: var(--transition); cursor: pointer; color: white; font-family: 'Outfit', sans-serif; font-weight: 600;
         }
         .skill-tag:hover { background: rgba(37, 99, 235, 0.3); transform: translateY(-2px); }
         .skill-tag.active { background: var(--primary-blue); border-color: var(--primary-blue); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4); transform: scale(1.05); }
-
         .expertise-video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; max-width: 900px; margin: 0 auto; }
         .grid-video-item { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: var(--transition); }
         .grid-video-item iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- PRICING SECTION --- */
+        .pricing { background: #010409; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 40px; }
+        
+        .pricing-card {
+            background: var(--bg-card); padding: 40px 30px; border-radius: 20px;
+            border: 1px solid var(--border); transition: var(--transition);
+            backdrop-filter: blur(10px); display: flex; flex-direction: column; text-align: left;
+        }
+        .pricing-card:hover { transform: translateY(-10px); border-color: var(--primary-blue); box-shadow: 0 15px 40px rgba(37,99,235,0.15); }
+        
+        /* Advance Package Highlight */
+        .pricing-card.popular {
+            border-color: var(--primary-blue); position: relative;
+            background: linear-gradient(180deg, rgba(37,99,235,0.1) 0%, rgba(15,23,42,0.6) 100%);
+        }
+        .badge {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--primary-blue); color: white; padding: 5px 15px;
+            border-radius: 50px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px;
+        }
+
+        .pricing-card h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--text-white); }
+        .pricing-card .price { font-size: 2.5rem; font-weight: 800; color: var(--accent-blue); margin-bottom: 20px; }
+        .pricing-card .price span { font-size: 1rem; color: var(--text-dim); font-weight: 400; }
+        .pricing-card ul { list-style: none; margin-bottom: 30px; flex-grow: 1; }
+        .pricing-card ul li { margin-bottom: 12px; font-size: 0.95rem; color: var(--text-dim); display: flex; align-items: center; gap: 10px; }
+        .pricing-card ul li i { color: var(--primary-blue); font-size: 0.9rem; }
 
         /* --- Contact Section --- */
         .contact-wrapper { display: flex; gap: 30px; background: rgba(15, 23, 42, 0.6); border-radius: 20px; padding: 30px; border: 1px solid var(--border); backdrop-filter: blur(10px); }
@@ -203,7 +213,7 @@
 
         footer { text-align: center; padding: 30px 20px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.9rem; }
 
-        /* --- 100% MOBILE & ANDROID FRIENDLY FIXES --- */
+        /* --- MOBILE RESPONSIVE FIXES --- */
         @media (max-width: 968px) {
             .section-padding { padding: 60px 5%; }
             .menu-toggle { display: block; }
@@ -212,31 +222,28 @@
             nav.active { max-height: 400px; padding: 20px 0; }
             nav ul { flex-direction: column; gap: 15px; }
             nav ul li { width: 100%; text-align: center; }
-            nav a.btn { display: inline-block; margin-top: 5px; }
+            nav a.btn { display: inline-block; margin-top: 5px; margin-left: 0; }
 
             .hero { flex-direction: column; text-align: center; gap: 30px; padding-top: 100px; }
             .hero-content h1 { font-size: 2.5rem; }
             .hero-content p { margin: 0 auto 20px auto; font-size: 0.95rem; }
             .hero-content .btn-outline { margin-left: 0; margin-top: 10px; display: inline-block; }
             
-            .hero-image-container { width: 100%; padding: 0; }
-            .main-img { max-width: 240px; } /* Perfectly small for Android/iPhone */
-            
+            .main-img { max-width: 240px; }
             .float-icon { width: 40px; height: 40px; font-size: 1.1rem; border-radius: 10px; }
-            .icon-ae { left: 5%; top: 0; }
-            .icon-pr { right: 5%; top: 20%; }
-            .icon-ps { left: 10%; bottom: 5%; }
-            .icon-ai { right: 10%; top: -5%; }
-            .icon-an { right: 5%; bottom: 15%; }
+            
+            /* Tweak anchored icons slightly for smaller mobile wrapper */
+            .icon-ae { left: -10%; }
+            .icon-pr { right: -10%; }
+            .icon-ps { left: -5%; }
+            .icon-an { right: -5%; }
 
-            /* Calm the background animations for mobile performance */
             .m-cloud { font-size: 8rem; top: 5%; opacity: 0.5; }
             .m-play { font-size: 5rem; top: 10%; }
             .m-cut { display: none; }
             .m-film { font-size: 6rem; bottom: 5%; opacity: 0.5; }
 
-            .software-grid-pro { grid-template-columns: 1fr; gap: 12px; }
-            .expertise-video-grid { grid-template-columns: 1fr; gap: 12px; } /* Stacks 4 videos perfectly on mobile */
+            .software-grid-pro, .expertise-video-grid, .pricing-grid { grid-template-columns: 1fr; gap: 15px; }
 
             .contact-wrapper { flex-direction: column; padding: 20px; }
             .contact-info { border-left: none; padding-left: 0; padding-top: 20px; border-top: 1px solid var(--border); }
@@ -253,8 +260,8 @@
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#showreel">Showreel</a></li>
-                <li><a href="#work">Skills</a></li>
                 <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#contact" class="btn btn-primary">Hire Me</a></li>
             </ul>
         </nav>
@@ -280,14 +287,16 @@
         </div>
 
         <div class="hero-image-container">
-            <!-- Main Image -->
-            <img src="jobayer.jpg" alt="Jobayer Hossan" class="main-img" onerror="this.src='https://images.pexels.com/photos/35132322/pexels-photo-35132322.jpeg'">
-            <!-- Floating Adobe Logos -->
-            <div class="glass-icon float-icon icon-ae" title="After Effects">Ae</div>
-            <div class="glass-icon float-icon icon-pr" title="Premiere Pro">Pr</div>
-            <div class="glass-icon float-icon icon-ps" title="Photoshop">Ps</div>
-            <div class="glass-icon float-icon icon-ai" title="Illustrator">Ai</div>
-            <div class="glass-icon float-icon icon-an" title="Adobe Animate">An</div>
+            <!-- New Wrapper to tightly anchor icons to the image -->
+            <div class="image-wrapper">
+                <img src="jobayer.jpg" alt="Jobayer Hossan" class="main-img" onerror="this.src='https://images.pexels.com/photos/35132322/pexels-photo-35132322.jpeg'">
+                
+                <div class="glass-icon float-icon icon-ae" title="After Effects">Ae</div>
+                <div class="glass-icon float-icon icon-pr" title="Premiere Pro">Pr</div>
+                <div class="glass-icon float-icon icon-ps" title="Photoshop">Ps</div>
+                <div class="glass-icon float-icon icon-ai" title="Illustrator">Ai</div>
+                <div class="glass-icon float-icon icon-an" title="Adobe Animate">An</div>
+            </div>
         </div>
     </section>
 
@@ -297,7 +306,7 @@
             <h2>Sunnahloy</h2><h2>Shopelor</h2><h2>Khoroch.app</h2>
             <h2>Salman Munna</h2><h2>Kahf</h2><h2>Kahf Kids</h2>
             <h2>Breakdown Bangladesh</h2><h2>Techaloy</h2><h2>Nasheed</h2><h2>Halal Beats</h2>
-            <!-- Duplicated for seamless loop -->
+            <!-- Duplicated for loop -->
             <h2>Sunnahloy</h2><h2>Shopelor</h2><h2>Khoroch.app</h2>
         </div>
     </div>
@@ -316,72 +325,47 @@
         <p style="color: var(--text-dim); font-size: 0.8rem;">(Hover to pause the slider)</p>
     </section>
 
-    <!-- ULTRA COMPACT: Software Experiences -->
+    <!-- Software Experiences -->
     <section class="section-padding" id="work">
         <span class="title-sub">Mastery</span>
         <h2 style="font-size: 2rem; margin-bottom: 25px;">Software <span>Stack</span></h2>
-        
         <div class="software-grid-pro">
-            <!-- 1. After Effects (85%) -->
             <div class="soft-card-pro">
                 <div class="glass-icon card-icon icon-ae">Ae</div>
                 <div class="soft-content">
-                    <div class="soft-header">
-                        <h3>After Effects</h3>
-                        <span class="soft-percent">85%</span>
-                    </div>
+                    <div class="soft-header"><h3>After Effects</h3><span class="soft-percent">85%</span></div>
                     <p>High-End VFX & Motion Graphics</p>
                     <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 85%;"></div></div>
                 </div>
             </div>
-
-            <!-- 2. Premiere Pro (80%) -->
             <div class="soft-card-pro">
                 <div class="glass-icon card-icon icon-pr">Pr</div>
                 <div class="soft-content">
-                    <div class="soft-header">
-                        <h3>Premiere Pro</h3>
-                        <span class="soft-percent">80%</span>
-                    </div>
+                    <div class="soft-header"><h3>Premiere Pro</h3><span class="soft-percent">80%</span></div>
                     <p>Advanced Video Cutting & Storytelling</p>
                     <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 80%;"></div></div>
                 </div>
             </div>
-
-            <!-- 3. Adobe Animate (70%) -->
             <div class="soft-card-pro">
                 <div class="glass-icon card-icon icon-an">An</div>
                 <div class="soft-content">
-                    <div class="soft-header">
-                        <h3>Adobe Animate</h3>
-                        <span class="soft-percent">70%</span>
-                    </div>
+                    <div class="soft-header"><h3>Adobe Animate</h3><span class="soft-percent">70%</span></div>
                     <p>Fluid 2D Character Rigging & Anim</p>
                     <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 70%;"></div></div>
                 </div>
             </div>
-
-            <!-- 4. Illustrator (80%) -->
             <div class="soft-card-pro">
                 <div class="glass-icon card-icon icon-ai">Ai</div>
                 <div class="soft-content">
-                    <div class="soft-header">
-                        <h3>Illustrator</h3>
-                        <span class="soft-percent">80%</span>
-                    </div>
+                    <div class="soft-header"><h3>Illustrator</h3><span class="soft-percent">80%</span></div>
                     <p>Vector Asset & Character Creation</p>
                     <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 80%;"></div></div>
                 </div>
             </div>
-
-            <!-- 5. Photoshop (80%) -->
             <div class="soft-card-pro">
                 <div class="glass-icon card-icon icon-ps">Ps</div>
                 <div class="soft-content">
-                    <div class="soft-header">
-                        <h3>Photoshop</h3>
-                        <span class="soft-percent">80%</span>
-                    </div>
+                    <div class="soft-header"><h3>Photoshop</h3><span class="soft-percent">80%</span></div>
                     <p>Layer Management & Compositing</p>
                     <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 80%;"></div></div>
                 </div>
@@ -389,12 +373,11 @@
         </div>
     </section>
 
-    <!-- INTERACTIVE: 4-Video Grid Core Expertise Section -->
+    <!-- 4-Video Grid Core Expertise Section -->
     <section class="section-padding" id="expertise" style="text-align: center; background: #010409;">
         <span class="title-sub">Watch My Work</span>
         <h2 style="font-size: 2rem;">Core <span>Expertise</span></h2>
         
-        <!-- Interactive Buttons -->
         <div class="skills-container">
             <button class="skill-tag active" data-videos="https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/tgbNymZ7vqY,https://player.vimeo.com/video/137857207,https://www.youtube.com/embed/ScMzIvxBSi4">All</button>
             <button class="skill-tag" data-videos="https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/LXb3EKWsInQ">Documentary</button>
@@ -403,7 +386,6 @@
             <button class="skill-tag" data-videos="https://www.youtube.com/embed/ScMzIvxBSi4,https://www.youtube.com/embed/ScMzIvxBSi4,https://www.youtube.com/embed/ScMzIvxBSi4,https://www.youtube.com/embed/ScMzIvxBSi4">UI Animation</button>
         </div>
 
-        <!-- The 4-Video Grid -->
         <div class="expertise-video-grid" id="video-grid-container">
             <div class="grid-video-item"><iframe src="https://www.youtube.com/embed/LXb3EKWsInQ" allowfullscreen></iframe></div>
             <div class="grid-video-item"><iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe></div>
@@ -412,22 +394,82 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- NEW: PRICING SECTION -->
+    <section class="section-padding pricing" id="pricing">
+        <div style="text-align: center;">
+            <span class="title-sub">Investment</span>
+            <h2 style="font-size: 2rem;">Pricing <span>Packages</span></h2>
+        </div>
+        
+        <div class="pricing-grid">
+            <!-- Basic Package -->
+            <div class="pricing-card">
+                <h3>Basic Package</h3>
+                <div class="price">$50<span> / video</span></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Short Form (Up to 60s)</li>
+                    <li><i class="fas fa-check"></i> Basic Color Correction</li>
+                    <li><i class="fas fa-check"></i> Standard Text Overlays</li>
+                    <li><i class="fas fa-check"></i> 1 Revision</li>
+                    <li><i class="fas fa-times" style="color: #475569;"></i> Advanced Motion Graphics</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline btn-block">Choose Plan</a>
+            </div>
+
+            <!-- Advance Package (Highlighted) -->
+            <div class="pricing-card popular">
+                <div class="badge">Most Popular</div>
+                <h3>Advance Package</h3>
+                <div class="price">$150<span> / video</span></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Long Form (Up to 10 mins)</li>
+                    <li><i class="fas fa-check"></i> Cinematic Color Grading</li>
+                    <li><i class="fas fa-check"></i> Custom Motion Graphics</li>
+                    <li><i class="fas fa-check"></i> Advanced Sound Design</li>
+                    <li><i class="fas fa-check"></i> 3 Revisions</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary btn-block">Choose Plan</a>
+            </div>
+
+            <!-- Premium Package -->
+            <div class="pricing-card">
+                <h3>Premium Package</h3>
+                <div class="price">$300<span> / project</span></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Documentary / High-End UI</li>
+                    <li><i class="fas fa-check"></i> Full 2D Character Animation</li>
+                    <li><i class="fas fa-check"></i> Professional VFX</li>
+                    <li><i class="fas fa-check"></i> Source Files Included</li>
+                    <li><i class="fas fa-check"></i> Unlimited Revisions</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline btn-block">Choose Plan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORKING Contact Section -->
     <section class="section-padding" id="contact">
         <span class="title-sub">Get In Touch</span>
         <h2 style="font-size: 2rem; margin-bottom: 25px;">Let's Talk <span>Project</span></h2>
         
         <div class="contact-wrapper">
             <div class="contact-form">
-                <form>
+                <!-- FORMSUBMIT Backend -> Securely sends emails to you -->
+                <form action="https://formsubmit.co/hello.jobayerhossan@gmail.com" method="POST">
+                    
+                    <!-- Formsubmit Configurations -->
+                    <input type="hidden" name="_subject" value="New Inquiry from Portfolio Website!">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    
                     <div class="input-group">
-                        <input type="text" placeholder="Full Name" required>
+                        <input type="text" name="Name" placeholder="Full Name" required>
                     </div>
                     <div class="input-group">
-                        <input type="email" placeholder="Your Email" required>
+                        <input type="email" name="Email" placeholder="Your Email" required>
                     </div>
                     <div class="input-group">
-                        <textarea rows="4" placeholder="Project Description..." required></textarea>
+                        <textarea name="Message" rows="4" placeholder="Project Description..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
@@ -444,7 +486,7 @@
                 </div>
                 <div class="info-item">
                     <h4>EMAIL ADDRESS</h4>
-                    <p>hello@jobayerhossan@gmail.com</p>
+                    <p>hello.jobayerhossan@gmail.com</p>
                 </div>
                 <div class="info-item">
                     <h4>SERVICE AREA</h4>
@@ -549,7 +591,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.soft-card-pro, .grid-video-item').forEach(el => {
+        document.querySelectorAll('.soft-card-pro, .grid-video-item, .pricing-card').forEach(el => {
             el.style.opacity = "0";
             el.style.transform = "translateY(30px)";
             el.style.transition = "all 0.8s ease-out";
