@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Editor | Video Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --bg-card: #0f172a;
+            --primary-blue: #2563eb;
+            --accent-blue: #38bdf8;
+            --text-white: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 10px; }
+
+        /* --- Reusable Components --- */
+        .section-padding { padding: 100px 8%; }
+        .btn {
+            padding: 12px 30px; border-radius: 50px; font-weight: 600;
+            text-decoration: none; display: inline-block; transition: var(--transition);
+            cursor: pointer; border: none; font-family: 'Outfit';
+        }
+        .btn-primary { background: var(--primary-blue); color: white; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); background: var(--accent-blue); }
+        .btn-outline { border: 2px solid var(--primary-blue); color: white; margin-left: 15px; }
+        .btn-outline:hover { background: var(--primary-blue); }
+
+        /* --- Navigation --- */
+        header {
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+        .logo span { color: var(--accent-blue); }
+        nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
+        nav a { text-decoration: none; color: var(--text-white); font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: var(--accent-blue); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 8%; position: relative;
+        }
+        .hero-content { flex: 1; z-index: 2; }
+        .hero-content h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; }
+        .hero-content span { color: var(--accent-blue); }
+        
+        .hero-image-container {
+            flex: 1; position: relative; display: flex; justify-content: center; align-items: center;
+        }
+        .main-img {
+            width: 380px; height: 480px; object-fit: cover; border-radius: 40px;
+            border: 2px solid var(--border); position: relative; z-index: 2;
+            box-shadow: 0 0 50px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Wiggle Icons */
+        .float-icon {
+            position: absolute; width: 60px; height: 60px; background: var(--bg-card);
+            border: 1px solid var(--border); border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: var(--accent-blue); z-index: 3;
+            animation: wiggle 4s infinite ease-in-out;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5px, -10px) rotate(5deg); }
+            50% { transform: translate(-5px, 5px) rotate(-5deg); }
+            75% { transform: translate(10px, 10px) rotate(3deg); }
+        }
+        .icon-ae { top: 10%; left: 0%; animation-delay: 0s; }
+        .icon-pr { top: 40%; right: -5%; animation-delay: 0.5s; }
+        .icon-ps { bottom: 10%; left: 5%; animation-delay: 1s; }
+        .icon-ai { top: -5%; right: 15%; animation-delay: 1.5s; }
+        .icon-an { bottom: 20%; right: 0%; animation-delay: 2s; }
+
+        /* --- Client Thread Slider --- */
+        .client-thread {
+            background: rgba(37, 99, 235, 0.05); padding: 40px 0;
+            overflow: hidden; border-y: 1px solid var(--border);
+        }
+        .thread-track { display: flex; width: max-content; animation: threadScroll 30s linear infinite; }
+        .thread-track h2 { 
+            font-size: 1.5rem; color: var(--text-dim); opacity: 0.4; margin: 0 50px; 
+            text-transform: uppercase; white-space: nowrap; 
+        }
+        @keyframes threadScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* --- Showreel & Recent Work --- */
+        .showreel { text-align: center; background: #010409; }
+        .title-sub { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; margin-bottom: 10px; display: block; }
+        
+        .slider-container {
+            width: 100%; max-width: 1100px; margin: 50px auto;
+            position: relative; border-radius: 30px; overflow: hidden;
+            aspect-ratio: 16/9; border: 1px solid var(--border);
+        }
+        .video-slider { display: flex; width: 300%; height: 100%; transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1); }
+        .video-slide { width: 100%; height: 100%; }
+        .video-slide iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- Software Experience --- */
+        .software-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;
+        }
+        .soft-card {
+            background: var(--bg-card); padding: 30px; border-radius: 20px;
+            border: 1px solid var(--border); transition: var(--transition);
+        }
+        .soft-card:hover { transform: translateY(-10px); border-color: var(--primary-blue); }
+        .soft-card i { font-size: 2.5rem; color: var(--accent-blue); margin-bottom: 20px; }
+        .progress-bg { width: 100%; height: 8px; background: #1e293b; border-radius: 10px; margin-top: 15px; }
+        .progress-fill { height: 100%; background: var(--primary-blue); border-radius: 10px; position: relative; }
+        .progress-fill::after { content: ''; position: absolute; right: 0; top: -5px; width: 15px; height: 15px; background: white; border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); }
+
+        /* --- Skills Section --- */
+        .skills-container {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 40px;
+        }
+        .skill-tag {
+            padding: 12px 25px; background: var(--glass); border: 1px solid var(--border);
+            border-radius: 50px; font-size: 0.9rem; transition: var(--transition);
+        }
+        .skill-tag:hover { background: var(--primary-blue); transform: scale(1.1); }
+
+        /* --- Contact Section --- */
+        .contact-wrapper {
+            display: flex; gap: 50px; background: var(--bg-card); border-radius: 30px;
+            padding: 50px; border: 1px solid var(--border);
+        }
+        .contact-form { flex: 1.5; }
+        .contact-info { flex: 1; border-left: 1px solid var(--border); padding-left: 50px; }
+        
+        .input-group { margin-bottom: 20px; }
+        input, textarea {
+            width: 100%; padding: 15px; background: var(--bg-dark); border: 1px solid var(--border);
+            border-radius: 12px; color: white; outline: none; font-family: 'Outfit';
+        }
+        input:focus { border-color: var(--accent-blue); }
+
+        .info-item { margin-bottom: 30px; }
+        .info-item h4 { color: var(--accent-blue); margin-bottom: 5px; font-size: 0.9rem; }
+        .info-item p { font-size: 1.1rem; }
+
+        footer { text-align: center; padding: 50px; border-top: 1px solid var(--border); color: var(--text-dim); }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .contact-wrapper { flex-direction: column; }
+            .contact-info { border-left: none; padding-left: 0; padding-top: 30px; border-top: 1px solid var(--border); }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Jobayer<span> Hossan</span></div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#showreel">Showreel</a></li>
+                <li><a href="#work">Recent Work</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact" class="btn btn-primary" style="padding: 8px 20px;">Hire Me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="title-sub">Available for Freelance</span>
+            <h1>I Create <span>Cinematic</span> Visual Stories.</h1>
+            <p>Expert Video Editor & Motion Designer specializing in Documentary, Reels, and UI Animation. Let's make your footage legendary.</p>
+            <div style="margin-top: 40px;">
+                <a href="#contact" class="btn btn-primary">Hire Me Now</a>
+                <a href="your-cv.pdf" download class="btn btn-outline"><i class="fas fa-download"></i> Download CV</a>
+            </div>
+        </div>
+
+        <div class="hero-image-container">
+            <!-- Replace this URL with your actual image -->
+            <img src="jobayer.jpg" alt="Jobayer Hossan" class="main-img">
+            
+            <!-- Software Floating Icons -->
+            <div class="float-icon icon-ae" title="After Effects"><i class="fab fa-adobe"></i></div>
+            <div class="float-icon icon-pr" title="Premiere Pro"><i class="fas fa-film"></i></div>
+            <div class="float-icon icon-ps" title="Photoshop"><i class="fas fa-image"></i></div>
+            <div class="float-icon icon-ai" title="Illustrator"><i class="fas fa-pen-nib"></i></div>
+            <div class="float-icon icon-an" title="Adobe Animate"><i class="fas fa-running"></i></div>
+        </div>
+    </section>
+
+    <!-- Client Thread Slider -->
+    <div class="client-thread">
+        <div class="thread-track">
+            <h2>Sunnahloy</h2>
+            <h2>Shopelor</h2>
+            <h2>Khoroch.app</h2>
+            <h2>Salman Munna</h2>
+            <h2>Kahf</h2>
+            <h2>Kahf Kids</h2>
+            <h2>Breakdown Bangladesh</h2>
+            <h2>Techaloy</h2>
+            <h2>Nasheed</h2>
+            <h2>Halal Beats</h2>
+        </div>
+    </div>
+
+    <!-- Showreel Section -->
+    <section class="section-padding showreel" id="showreel">
+        <span class="title-sub">My Production</span>
+        <h2 style="font-size: 2.5rem;">2026 <span>Showreel</span></h2>
+        
+        <div class="slider-container">
+            <div class="video-slider" id="showreelSlider">
+                <div class="video-slide"><iframe src="pc1.jpg"></iframe></div>
+                <div class="video-slide"><iframe src="https://images.pexels.com/photos/2912996/pexels-photo-2912996.jpeg"></iframe></div>
+                <div class="video-slide"><iframe src="https://images.pexels.com/photos/35132322/pexels-photo-35132322.jpeg"></iframe></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Software Experiences -->
+    <section class="section-padding" id="work">
+        <span class="title-sub">Mastery</span>
+        <h2 style="font-size: 2.5rem; margin-bottom: 50px;">Software <span>Stack</span></h2>
+        
+        <div class="software-grid">
+            <div class="soft-card">
+                <i class="fas fa-film"></i>
+                <h3>Premiere Pro</h3>
+                <p>Advanced Storytelling & Cutting</p>
+                <div class="progress-bg"><div class="progress-fill" style="width: 95%;"></div></div>
+            </div>
+            <div class="soft-card">
+                <i class="fab fa-adobe"></i>
+                <h3>After Effects</h3>
+                <p>VFX & Motion Graphics</p>
+                <div class="progress-bg"><div class="progress-fill" style="width: 90%;"></div></div>
+            </div>
+            <div class="soft-card">
+                <i class="fas fa-bezier-curve"></i>
+                <h3>Adobe Animate</h3>
+                <p>2D Character Animation</p>
+                <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
+            </div>
+            <div class="soft-card">
+                <i class="fas fa-palette"></i>
+                <h3>Photoshop / AI</h3>
+                <p>Asset Creation & Compositing</p>
+                <div class="progress-bg"><div class="progress-fill" style="width: 85%;"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section-padding" id="skills" style="text-align: center; background: #010409;">
+        <span class="title-sub">What I Do Best</span>
+        <h2 style="font-size: 2.5rem;">Core <span>Expertise</span></h2>
+        <div class="skills-container">
+            <div class="skill-tag">Documentary Editing</div>
+            <div class="skill-tag">Viral Reel Editing</div>
+            <div class="skill-tag">Motion Graphics</div>
+            <div class="skill-tag">UI Animation</div>
+            <div class="skill-tag">2D Animation</div>
+            <div class="skill-tag">Color Grading</div>
+            <div class="skill-tag">Sound Design</div>
+        </div>
+    </section>
+
+    <!-- Recent Work Video Slideshow -->
+    <section class="section-padding">
+        <span class="title-sub">Portfolio</span>
+        <h2 style="font-size: 2.5rem; margin-bottom: 50px;">Recent <span>Works</span></h2>
+        <div class="slider-container" style="height: 400px;">
+            <div class="video-slider" id="recentSlider">
+                <div class="video-slide"><iframe src="https://images.pexels.com/photos/35132322/pexels-photo-35132322.jpeg"></iframe></div>
+                <div class="video-slide"><iframe src="https://youtu.be/SfELd7_fLe0?si=80iE62JBBlBlejNm"></iframe></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section-padding" id="contact">
+        <span class="title-sub">Get In Touch</span>
+        <h2 style="font-size: 2.5rem; margin-bottom: 50px;">Let's Talk <span>Project</span></h2>
+        
+        <div class="contact-wrapper">
+            <div class="contact-form">
+                <form>
+                    <div class="input-group">
+                        <input type="text" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="input-group">
+                        <textarea rows="6" placeholder="Project Description..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <div class="info-item">
+                    <h4>MY NAME</h4>
+                    <p>Jobayer Hossan</p>
+                </div>
+                <div class="info-item">
+                    <h4>WHATSAPP / PHONE</h4>
+                    <p>+880 1839 582261</p>
+                </div>
+                <div class="info-item">
+                    <h4>EMAIL ADDRESS</h4>
+                    <p>hello@jobayerhossan@gmail.com</p>
+                </div>
+                <div class="info-item">
+                    <h4>SERVICE AREA</h4>
+                    <p>Worldwide (Remote)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Jobayer Hossan Portfolio. All Rights Reserved by, salmanmunna.com.</p>
+        <div style="margin-top: 20px;">
+            <a href="#" style="color: var(--accent-blue); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-youtube"></i></a>
+            <a href="#" style="color: var(--accent-blue); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: var(--accent-blue); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Automatic Sliders
+        function setupSlider(sliderId, count) {
+            const slider = document.getElementById(sliderId);
+            let current = 0;
+            setInterval(() => {
+                current++;
+                if (current >= count) current = 0;
+                slider.style.transform = `translateX(-${current * (100 / count)}%)`;
+            }, 5000);
+        }
+
+        setupSlider('showreelSlider', 3);
+        setupSlider('recentSlider', 2);
+
+        // Smooth Appearance on Scroll
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.soft-card, .skill-tag').forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(30px)";
+            el.style.transition = "all 0.8s ease-out";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
