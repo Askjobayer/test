@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Editor | Video Portfolio</title>
+    <title>Jobayer Hossan | Video Editor Portfolio</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -13,19 +13,16 @@
     <style>
         :root {
             --bg-dark: #020617;
-            --bg-card: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.6);
             --primary-blue: #2563eb;
             --accent-blue: #38bdf8;
             --text-white: #f8fafc;
             --text-dim: #94a3b8;
-            --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
             font-family: 'Outfit', sans-serif;
@@ -56,132 +53,201 @@
         header {
             position: fixed; width: 100%; top: 0; z-index: 1000;
             padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;
-            backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
+            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
         }
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; z-index: 1001; }
         .logo span { color: var(--accent-blue); }
+        
         nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
         nav a { text-decoration: none; color: var(--text-white); font-size: 0.9rem; transition: 0.3s; }
         nav a:hover { color: var(--accent-blue); }
+        .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: white; z-index: 1001; }
 
         /* --- Hero Section --- */
         .hero {
-            height: 100vh; display: flex; align-items: center; justify-content: space-between;
-            padding: 0 8%; position: relative;
+            min-height: 100vh; display: flex; align-items: center; justify-content: space-between;
+            padding: 100px 8% 50px; position: relative; gap: 50px;
         }
         .hero-content { flex: 1; z-index: 2; }
         .hero-content h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; }
         .hero-content span { color: var(--accent-blue); }
         
-        .hero-image-container {
-            flex: 1; position: relative; display: flex; justify-content: center; align-items: center;
-        }
+        .hero-image-container { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; }
         .main-img {
-            width: 380px; height: 480px; object-fit: cover; border-radius: 40px;
+            width: 100%; max-width: 400px; aspect-ratio: 4/5; object-fit: cover; border-radius: 40px;
             border: 2px solid var(--border); position: relative; z-index: 2;
             box-shadow: 0 0 50px rgba(37, 99, 235, 0.2);
         }
 
-        /* Wiggle Icons */
-        .float-icon {
-            position: absolute; width: 60px; height: 60px; background: var(--bg-card);
-            border: 1px solid var(--border); border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: var(--accent-blue); z-index: 3;
-            animation: wiggle 4s infinite ease-in-out;
+        /* --- Liquid Glass Icons --- */
+        .glass-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700; letter-spacing: -1px; user-select: none;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0));
+            backdrop-filter: blur(12px) saturate(150%); -webkit-backdrop-filter: blur(12px) saturate(150%);
+            border-top: 1px solid rgba(255, 255, 255, 0.4); border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2); border-right: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 4px 15px rgba(255, 255, 255, 0.1);
         }
-        @keyframes wiggle {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(5px, -10px) rotate(5deg); }
-            50% { transform: translate(-5px, 5px) rotate(-5deg); }
-            75% { transform: translate(10px, 10px) rotate(3deg); }
-        }
-        .icon-ae { top: 10%; left: 0%; animation-delay: 0s; }
-        .icon-pr { top: 40%; right: -5%; animation-delay: 0.5s; }
-        .icon-ps { bottom: 10%; left: 5%; animation-delay: 1s; }
-        .icon-ai { top: -5%; right: 15%; animation-delay: 1.5s; }
-        .icon-an { bottom: 20%; right: 0%; animation-delay: 2s; }
+
+        .float-icon { position: absolute; width: 75px; height: 75px; border-radius: 22px; font-size: 2rem; z-index: 3; animation: float 6s ease-in-out infinite; }
+        .icon-ae { color: #d6d6ff; background-color: rgba(0, 0, 91, 0.4); text-shadow: 0 0 12px rgba(153, 153, 255, 1); top: 5%; left: -5%; animation-delay: 0s; }
+        .icon-pr { color: #fbd6ff; background-color: rgba(43, 0, 71, 0.4); text-shadow: 0 0 12px rgba(234, 119, 255, 1); top: 35%; right: -10%; animation-delay: 0.5s; }
+        .icon-ps { color: #baecff; background-color: rgba(0, 30, 54, 0.4); text-shadow: 0 0 12px rgba(49, 168, 255, 1); bottom: 10%; left: 0%; animation-delay: 1s; }
+        .icon-ai { color: #ffebcc; background-color: rgba(51, 0, 0, 0.4); text-shadow: 0 0 12px rgba(255, 154, 0, 1); top: -10%; right: 10%; animation-delay: 1.5s; }
+        .icon-an { color: #ffcccc; background-color: rgba(47, 0, 0, 0.4); text-shadow: 0 0 12px rgba(255, 10, 27, 1); bottom: 15%; right: -5%; animation-delay: 2s; }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-15px) rotate(4deg); } }
 
         /* --- Client Thread Slider --- */
-        .client-thread {
-            background: rgba(37, 99, 235, 0.05); padding: 40px 0;
-            overflow: hidden; border-y: 1px solid var(--border);
-        }
-        .thread-track { display: flex; width: max-content; animation: threadScroll 30s linear infinite; }
-        .thread-track h2 { 
-            font-size: 1.5rem; color: var(--text-dim); opacity: 0.4; margin: 0 50px; 
-            text-transform: uppercase; white-space: nowrap; 
-        }
-        @keyframes threadScroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
+        .client-thread { background: rgba(37, 99, 235, 0.05); padding: 30px 0; overflow: hidden; border-y: 1px solid var(--border); }
+        .thread-track { display: flex; width: max-content; animation: threadScroll 25s linear infinite; }
+        .thread-track h2 { font-size: 1.2rem; color: var(--text-dim); opacity: 0.4; margin: 0 30px; text-transform: uppercase; white-space: nowrap; }
+        @keyframes threadScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* --- Showreel & Recent Work --- */
+        /* --- Showreel --- */
         .showreel { text-align: center; background: #010409; }
-        .title-sub { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; margin-bottom: 10px; display: block; }
+        .title-sub { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; margin-bottom: 10px; display: block; font-weight: 600;}
         
-        .slider-container {
-            width: 100%; max-width: 1100px; margin: 50px auto;
-            position: relative; border-radius: 30px; overflow: hidden;
-            aspect-ratio: 16/9; border: 1px solid var(--border);
+        .slider-wrapper {
+            width: 100%; max-width: 1100px; margin: 40px auto; position: relative; border-radius: 20px; overflow: hidden;
+            aspect-ratio: 16/9; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: #000;
         }
-        .video-slider { display: flex; width: 300%; height: 100%; transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1); }
-        .video-slide { width: 100%; height: 100%; }
-        .video-slide iframe { width: 100%; height: 100%; border: none; }
+        .video-slider { display: flex; height: 100%; transition: transform 0.6s cubic-bezier(0.64, 0.04, 0.35, 1); }
+        .video-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
+        .video-slide iframe, .video-slide img { width: 100%; height: 100%; border: none; object-fit: cover; }
 
-        /* --- Software Experience --- */
-        .software-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;
+        /* --- REDESIGNED: Software Stack (Professional Layout) --- */
+        .software-grid-pro {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
         }
-        .soft-card {
-            background: var(--bg-card); padding: 30px; border-radius: 20px;
-            border: 1px solid var(--border); transition: var(--transition);
+        
+        .soft-card-pro {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 24px;
+            transition: var(--transition);
+            position: relative;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            overflow: hidden;
         }
-        .soft-card:hover { transform: translateY(-10px); border-color: var(--primary-blue); }
-        .soft-card i { font-size: 2.5rem; color: var(--accent-blue); margin-bottom: 20px; }
-        .progress-bg { width: 100%; height: 8px; background: #1e293b; border-radius: 10px; margin-top: 15px; }
-        .progress-fill { height: 100%; background: var(--primary-blue); border-radius: 10px; position: relative; }
-        .progress-fill::after { content: ''; position: absolute; right: 0; top: -5px; width: 15px; height: 15px; background: white; border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); }
+        
+        .soft-card-pro:hover {
+            border-color: rgba(56, 189, 248, 0.5); /* Glows with accent blue */
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.15);
+            background: rgba(15, 23, 42, 0.8);
+        }
 
-        /* --- Skills Section --- */
-        .skills-container {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 40px;
+        .soft-card-pro .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            font-size: 1.8rem;
+            flex-shrink: 0;
         }
+
+        .soft-content { flex: 1; }
+        
+        .soft-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .soft-header h3 { font-size: 1.4rem; font-weight: 600; letter-spacing: 0.5px; color: var(--text-white); }
+        .soft-percent { color: var(--accent-blue); font-weight: 800; font-size: 1.1rem; }
+        
+        .soft-content p {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .progress-bg-pro {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill-pro {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+        }
+
+        /* --- INTERACTIVE 4-VIDEO GRID EXPERTISE SECTION --- */
+        .skills-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 40px; margin-bottom: 40px; }
         .skill-tag {
-            padding: 12px 25px; background: var(--glass); border: 1px solid var(--border);
-            border-radius: 50px; font-size: 0.9rem; transition: var(--transition);
+            padding: 12px 25px; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            border-radius: 50px; font-size: 0.9rem; transition: var(--transition); cursor: pointer;
+            color: white; font-family: 'Outfit', sans-serif; outline: none; font-weight: 600;
         }
-        .skill-tag:hover { background: var(--primary-blue); transform: scale(1.1); }
+        .skill-tag:hover { background: rgba(37, 99, 235, 0.3); transform: translateY(-3px); }
+        .skill-tag.active { background: var(--primary-blue); border-color: var(--primary-blue); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4); transform: scale(1.05); }
+
+        .expertise-video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; max-width: 1100px; margin: 0 auto; }
+        .grid-video-item { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: var(--transition); }
+        .grid-video-item iframe { width: 100%; height: 100%; border: none; }
 
         /* --- Contact Section --- */
-        .contact-wrapper {
-            display: flex; gap: 50px; background: var(--bg-card); border-radius: 30px;
-            padding: 50px; border: 1px solid var(--border);
-        }
+        .contact-wrapper { display: flex; gap: 50px; background: rgba(15, 23, 42, 0.6); border-radius: 30px; padding: 50px; border: 1px solid var(--border); backdrop-filter: blur(10px); }
         .contact-form { flex: 1.5; }
         .contact-info { flex: 1; border-left: 1px solid var(--border); padding-left: 50px; }
-        
         .input-group { margin-bottom: 20px; }
-        input, textarea {
-            width: 100%; padding: 15px; background: var(--bg-dark); border: 1px solid var(--border);
-            border-radius: 12px; color: white; outline: none; font-family: 'Outfit';
-        }
-        input:focus { border-color: var(--accent-blue); }
-
+        input, textarea { width: 100%; padding: 15px; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 12px; color: white; outline: none; font-family: 'Outfit'; }
+        input:focus, textarea:focus { border-color: var(--accent-blue); }
         .info-item { margin-bottom: 30px; }
         .info-item h4 { color: var(--accent-blue); margin-bottom: 5px; font-size: 0.9rem; }
         .info-item p { font-size: 1.1rem; }
 
-        footer { text-align: center; padding: 50px; border-top: 1px solid var(--border); color: var(--text-dim); }
+        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); color: var(--text-dim); }
 
-        /* Responsive */
+        /* --- MOBILE RESPONSIVE FIXES --- */
         @media (max-width: 968px) {
-            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
-            .hero-content h1 { font-size: 2.8rem; }
-            .contact-wrapper { flex-direction: column; }
+            .section-padding { padding: 60px 5%; }
+            .menu-toggle { display: block; }
+            nav { position: absolute; top: 100%; left: 0; width: 100%; background: #020617; border-bottom: 1px solid var(--border); padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+            nav.active { max-height: 400px; padding: 20px 0; }
+            nav ul { flex-direction: column; gap: 20px; }
+            nav ul li { width: 100%; text-align: center; }
+            nav a.btn { display: inline-block; margin-top: 10px; }
+
+            .hero { flex-direction: column; text-align: center; gap: 30px; padding-top: 120px; }
+            .hero-content h1 { font-size: 3rem; }
+            .hero-content .btn-outline { margin-left: 0; margin-top: 15px; display: inline-block; }
+            .hero-image-container { width: 100%; padding: 0 20px; }
+            .float-icon { width: 55px; height: 55px; font-size: 1.5rem; border-radius: 14px; }
+            .icon-ae { left: 0; top: 0; }
+            .icon-pr { right: 0; top: 20%; }
+            .icon-ps { left: 5%; bottom: 5%; }
+            .icon-ai { right: 5%; top: -5%; }
+            .icon-an { right: 0; bottom: 15%; }
+
+            /* Software Stack Mobile */
+            .software-grid-pro { grid-template-columns: 1fr; }
+            .soft-card-pro { flex-direction: column; text-align: center; gap: 15px; padding: 25px; }
+            .soft-header { flex-direction: column; gap: 5px; }
+
+            /* Grid Video Mobile Fallback */
+            .expertise-video-grid { grid-template-columns: 1fr; }
+
+            .contact-wrapper { flex-direction: column; padding: 30px 20px; }
             .contact-info { border-left: none; padding-left: 0; padding-top: 30px; border-top: 1px solid var(--border); }
-            nav { display: none; }
+            h2 { font-size: 2rem !important; }
         }
     </style>
 </head>
@@ -189,13 +255,14 @@
 
     <header>
         <div class="logo">Jobayer<span> Hossan</span></div>
-        <nav>
+        <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+        <nav id="nav-menu">
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#showreel">Showreel</a></li>
-                <li><a href="#work">Recent Work</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact" class="btn btn-primary" style="padding: 8px 20px;">Hire Me</a></li>
+                <li><a href="#work">Skills</a></li>
+                <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#contact" class="btn btn-primary" style="padding: 8px 25px;">Hire Me</a></li>
             </ul>
         </nav>
     </header>
@@ -212,31 +279,23 @@
         </div>
 
         <div class="hero-image-container">
-            <!-- Replace this URL with your actual image -->
-            <img src="jobayer.jpg" alt="Jobayer Hossan" class="main-img">
-            
-            <!-- Software Floating Icons -->
-            <div class="float-icon icon-ae" title="After Effects"><i class="fab fa-adobe"></i></div>
-            <div class="float-icon icon-pr" title="Premiere Pro"><i class="fas fa-film"></i></div>
-            <div class="float-icon icon-ps" title="Photoshop"><i class="fas fa-image"></i></div>
-            <div class="float-icon icon-ai" title="Illustrator"><i class="fas fa-pen-nib"></i></div>
-            <div class="float-icon icon-an" title="Adobe Animate"><i class="fas fa-running"></i></div>
+            <img src="jobayer.jpg" alt="Jobayer Hossan" class="main-img" onerror="this.src='https://images.pexels.com/photos/35132322/pexels-photo-35132322.jpeg'">
+            <div class="glass-icon float-icon icon-ae" title="After Effects">Ae</div>
+            <div class="glass-icon float-icon icon-pr" title="Premiere Pro">Pr</div>
+            <div class="glass-icon float-icon icon-ps" title="Photoshop">Ps</div>
+            <div class="glass-icon float-icon icon-ai" title="Illustrator">Ai</div>
+            <div class="glass-icon float-icon icon-an" title="Adobe Animate">An</div>
         </div>
     </section>
 
     <!-- Client Thread Slider -->
     <div class="client-thread">
         <div class="thread-track">
-            <h2>Sunnahloy</h2>
-            <h2>Shopelor</h2>
-            <h2>Khoroch.app</h2>
-            <h2>Salman Munna</h2>
-            <h2>Kahf</h2>
-            <h2>Kahf Kids</h2>
-            <h2>Breakdown Bangladesh</h2>
-            <h2>Techaloy</h2>
-            <h2>Nasheed</h2>
-            <h2>Halal Beats</h2>
+            <h2>Sunnahloy</h2><h2>Shopelor</h2><h2>Khoroch.app</h2>
+            <h2>Salman Munna</h2><h2>Kahf</h2><h2>Kahf Kids</h2>
+            <h2>Breakdown Bangladesh</h2><h2>Techaloy</h2><h2>Nasheed</h2><h2>Halal Beats</h2>
+            <!-- Duplicated for loop -->
+            <h2>Sunnahloy</h2><h2>Shopelor</h2><h2>Khoroch.app</h2>
         </div>
     </div>
 
@@ -244,80 +303,104 @@
     <section class="section-padding showreel" id="showreel">
         <span class="title-sub">My Production</span>
         <h2 style="font-size: 2.5rem;">2026 <span>Showreel</span></h2>
-        
-        <div class="slider-container">
+        <div class="slider-wrapper">
             <div class="video-slider" id="showreelSlider">
-                <div class="video-slide"><iframe src="pc1.jpg"></iframe></div>
-                <div class="video-slide"><iframe src="https://images.pexels.com/photos/2912996/pexels-photo-2912996.jpeg"></iframe></div>
-                <div class="video-slide"><iframe src="https://images.pexels.com/photos/35132322/pexels-photo-35132322.jpeg"></iframe></div>
+                <div class="video-slide"><iframe src="https://www.youtube.com/embed/LXb3EKWsInQ?si=k1" allowfullscreen></iframe></div>
+                <div class="video-slide"><iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe></div>
+                <div class="video-slide"><img src="https://images.pexels.com/photos/2912996/pexels-photo-2912996.jpeg" alt="Thumbnail"></div>
             </div>
         </div>
+        <p style="color: var(--text-dim); font-size: 0.9rem;">(Hover to pause the slider)</p>
     </section>
 
-    <!-- Software Experiences -->
+    <!-- REDESIGNED: Software Experiences -->
     <section class="section-padding" id="work">
         <span class="title-sub">Mastery</span>
-        <h2 style="font-size: 2.5rem; margin-bottom: 50px;">Software <span>Stack</span></h2>
+        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Software <span>Stack</span></h2>
         
-        <div class="software-grid">
-            <div class="soft-card">
-                <i class="fas fa-film"></i>
-                <h3>Premiere Pro</h3>
-                <p>Advanced Storytelling & Cutting</p>
-                <div class="progress-bg"><div class="progress-fill" style="width: 95%;"></div></div>
+        <div class="software-grid-pro">
+            <!-- Card 1 -->
+            <div class="soft-card-pro">
+                <div class="glass-icon card-icon icon-pr">Pr</div>
+                <div class="soft-content">
+                    <div class="soft-header">
+                        <h3>Premiere Pro</h3>
+                        <span class="soft-percent">95%</span>
+                    </div>
+                    <p>Advanced Video Cutting, Multicam & Storytelling</p>
+                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 95%;"></div></div>
+                </div>
             </div>
-            <div class="soft-card">
-                <i class="fab fa-adobe"></i>
-                <h3>After Effects</h3>
-                <p>VFX & Motion Graphics</p>
-                <div class="progress-bg"><div class="progress-fill" style="width: 90%;"></div></div>
+            <!-- Card 2 -->
+            <div class="soft-card-pro">
+                <div class="glass-icon card-icon icon-ae">Ae</div>
+                <div class="soft-content">
+                    <div class="soft-header">
+                        <h3>After Effects</h3>
+                        <span class="soft-percent">90%</span>
+                    </div>
+                    <p>High-End VFX, Motion Graphics & Compositing</p>
+                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 90%;"></div></div>
+                </div>
             </div>
-            <div class="soft-card">
-                <i class="fas fa-bezier-curve"></i>
-                <h3>Adobe Animate</h3>
-                <p>2D Character Animation</p>
-                <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
+            <!-- Card 3 -->
+            <div class="soft-card-pro">
+                <div class="glass-icon card-icon icon-an">An</div>
+                <div class="soft-content">
+                    <div class="soft-header">
+                        <h3>Adobe Animate</h3>
+                        <span class="soft-percent">80%</span>
+                    </div>
+                    <p>Fluid 2D Character Rigging & Frame Animation</p>
+                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 80%;"></div></div>
+                </div>
             </div>
-            <div class="soft-card">
-                <i class="fas fa-palette"></i>
-                <h3>Photoshop / AI</h3>
-                <p>Asset Creation & Compositing</p>
-                <div class="progress-bg"><div class="progress-fill" style="width: 85%;"></div></div>
+            <!-- Card 4 -->
+            <div class="soft-card-pro">
+                <div class="glass-icon card-icon icon-ps">Ps</div>
+                <div class="soft-content">
+                    <div class="soft-header">
+                        <h3>Photoshop / AI</h3>
+                        <span class="soft-percent">85%</span>
+                    </div>
+                    <p>Layer Management, Masking & Asset Creation</p>
+                    <div class="progress-bg-pro"><div class="progress-fill-pro" style="width: 85%;"></div></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="section-padding" id="skills" style="text-align: center; background: #010409;">
-        <span class="title-sub">What I Do Best</span>
+    <!-- INTERACTIVE: 4-Video Grid Core Expertise Section -->
+    <section class="section-padding" id="expertise" style="text-align: center; background: #010409;">
+        <span class="title-sub">Watch My Work</span>
         <h2 style="font-size: 2.5rem;">Core <span>Expertise</span></h2>
+        
+        <!-- Interactive Buttons. "All" is now default active -->
         <div class="skills-container">
-            <div class="skill-tag">Documentary Editing</div>
-            <div class="skill-tag">Viral Reel Editing</div>
-            <div class="skill-tag">Motion Graphics</div>
-            <div class="skill-tag">UI Animation</div>
-            <div class="skill-tag">2D Animation</div>
-            <div class="skill-tag">Color Grading</div>
-            <div class="skill-tag">Sound Design</div>
+            <button class="skill-tag active" data-videos="https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/tgbNymZ7vqY,https://player.vimeo.com/video/137857207,https://www.youtube.com/embed/ScMzIvxBSi4">All</button>
+            <button class="skill-tag" data-videos="https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/LXb3EKWsInQ,https://www.youtube.com/embed/LXb3EKWsInQ">Documentary</button>
+            <button class="skill-tag" data-videos="https://www.youtube.com/embed/tgbNymZ7vqY,https://www.youtube.com/embed/tgbNymZ7vqY,https://www.youtube.com/embed/tgbNymZ7vqY,https://www.youtube.com/embed/tgbNymZ7vqY">Viral Reels</button>
+            <button class="skill-tag" data-videos="https://player.vimeo.com/video/137857207,https://player.vimeo.com/video/137857207,https://player.vimeo.com/video/137857207,https://player.vimeo.com/video/137857207">Motion Graphics</button>
+            <button class="skill-tag" data-videos="https://www.youtube.com/embed/ScMzIvxBSi4,https://www.youtube.com/embed/ScMzIvxBSi4,https://www.youtube.com/embed/ScMzIvxBSi4,https://www.youtube.com/embed/ScMzIvxBSi4">UI Animation</button>
         </div>
-    </section>
 
-    <!-- Recent Work Video Slideshow -->
-    <section class="section-padding">
-        <span class="title-sub">Portfolio</span>
-        <h2 style="font-size: 2.5rem; margin-bottom: 50px;">Recent <span>Works</span></h2>
-        <div class="slider-container" style="height: 400px;">
-            <div class="video-slider" id="recentSlider">
-                <div class="video-slide"><iframe src="https://images.pexels.com/photos/35132322/pexels-photo-35132322.jpeg"></iframe></div>
-                <div class="video-slide"><iframe src="https://youtu.be/SfELd7_fLe0?si=80iE62JBBlBlejNm"></iframe></div>
-            </div>
+        <!-- The 4-Video Grid (Pre-loaded with 1 of each to match the "All" button) -->
+        <div class="expertise-video-grid" id="video-grid-container">
+            <!-- Box 1 (Doc) -->
+            <div class="grid-video-item"><iframe src="https://www.youtube.com/embed/LXb3EKWsInQ" allowfullscreen></iframe></div>
+            <!-- Box 2 (Reel) -->
+            <div class="grid-video-item"><iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe></div>
+            <!-- Box 3 (Motion Graphic) -->
+            <div class="grid-video-item"><iframe src="https://player.vimeo.com/video/137857207" allowfullscreen></iframe></div>
+            <!-- Box 4 (Animation) -->
+            <div class="grid-video-item"><iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" allowfullscreen></iframe></div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section class="section-padding" id="contact">
         <span class="title-sub">Get In Touch</span>
-        <h2 style="font-size: 2.5rem; margin-bottom: 50px;">Let's Talk <span>Project</span></h2>
+        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Let's Talk <span>Project</span></h2>
         
         <div class="contact-wrapper">
             <div class="contact-form">
@@ -329,7 +412,7 @@
                         <input type="email" placeholder="Your Email" required>
                     </div>
                     <div class="input-group">
-                        <textarea rows="6" placeholder="Project Description..."></textarea>
+                        <textarea rows="5" placeholder="Project Description..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
@@ -357,30 +440,90 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Jobayer Hossan Portfolio. All Rights Reserved by,</p> <a href="salmanmunna.com"></a>
+        <p>&copy; 2026 Jobayer Hossan Portfolio. All Rights Reserved by <a href="https://salmanmunna.com" target="_blank" style="color: var(--accent-blue); text-decoration: none;">Salman Munna</a></p>
         <div style="margin-top: 20px;">
-            <a href="#" style="color: var(--accent-blue); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-youtube"></i></a>
-            <a href="#" style="color: var(--accent-blue); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
-            <a href="#" style="color: var(--accent-blue); margin: 0 10px; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+            <a href="#" style="color: var(--accent-blue); margin: 0 12px; font-size: 1.4rem;"><i class="fab fa-youtube"></i></a>
+            <a href="#" style="color: var(--accent-blue); margin: 0 12px; font-size: 1.4rem;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: var(--accent-blue); margin: 0 12px; font-size: 1.4rem;"><i class="fab fa-linkedin"></i></a>
         </div>
     </footer>
 
     <script>
-        // Automatic Sliders
-        function setupSlider(sliderId, count) {
+        // --- Mobile Hamburger Menu Toggle ---
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenu.querySelector('i');
+            if(navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenu.querySelector('i').classList.replace('fa-times', 'fa-bars');
+            });
+        });
+
+        // --- Interactive 4-Video Grid Switching Logic ---
+        const skillTags = document.querySelectorAll('.skill-tag');
+        const videoItems = document.querySelectorAll('.grid-video-item');
+        const videoIframes = document.querySelectorAll('.grid-video-item iframe');
+
+        skillTags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                skillTags.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const videoList = this.getAttribute('data-videos').split(',');
+                
+                videoIframes.forEach((iframe, index) => {
+                    if (videoList[index] && videoList[index].trim() !== "") {
+                        iframe.src = videoList[index].trim();
+                        videoItems[index].style.display = "block";
+                    } else {
+                        iframe.src = "";
+                        videoItems[index].style.display = "none";
+                    }
+                });
+            });
+        });
+
+        // --- Automatic Slider with Hover-to-Pause ---
+        function setupSlider(sliderId) {
             const slider = document.getElementById(sliderId);
+            if(!slider) return;
+            const container = slider.parentElement;
+            const slideCount = slider.children.length;
             let current = 0;
-            setInterval(() => {
-                current++;
-                if (current >= count) current = 0;
-                slider.style.transform = `translateX(-${current * (100 / count)}%)`;
-            }, 5000);
+            let slideInterval;
+
+            function startSlider() {
+                slideInterval = setInterval(() => {
+                    current++;
+                    if (current >= slideCount) current = 0;
+                    slider.style.transform = `translateX(-${current * 100}%)`;
+                }, 4000);
+            }
+            function stopSlider() { clearInterval(slideInterval); }
+
+            container.addEventListener('mouseenter', stopSlider);
+            container.addEventListener('mouseleave', startSlider);
+            container.addEventListener('touchstart', stopSlider);
+            container.addEventListener('touchend', startSlider);
+            startSlider();
         }
 
-        setupSlider('showreelSlider', 3);
-        setupSlider('recentSlider', 2);
+        setupSlider('showreelSlider');
 
-        // Smooth Appearance on Scroll
+        // --- Smooth Scroll Animations ---
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -391,7 +534,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.soft-card, .skill-tag').forEach(el => {
+        document.querySelectorAll('.soft-card-pro, .grid-video-item').forEach(el => {
             el.style.opacity = "0";
             el.style.transform = "translateY(30px)";
             el.style.transition = "all 0.8s ease-out";
