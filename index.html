@@ -218,7 +218,22 @@
             .section-padding { padding: 60px 5%; }
             .menu-toggle { display: block; }
             
-            nav { position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; backdrop-filter: blur(15px); }
+            /* UPDATED: Deep Glass Effect for Mobile Menu */
+            nav { 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: rgba(2, 6, 23, 0.95); 
+                border-bottom: 1px solid var(--border); 
+                padding: 0; 
+                max-height: 0; 
+                overflow: hidden; 
+                transition: max-height 0.4s ease-out; 
+                backdrop-filter: blur(25px); 
+                -webkit-backdrop-filter: blur(25px); 
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
             nav.active { max-height: 400px; padding: 20px 0; overflow-y: auto; }
             nav ul { flex-direction: column; gap: 15px; }
             .nav-right { gap: 15px; }
@@ -248,7 +263,6 @@
 <body>
 
     <header>
-        <!-- UPDATED: Header Logo with Link -->
         <a href="#home" class="logo">
             <i class="fas fa-play-circle"></i> 
             Jobayer<span> Hossan</span>
@@ -257,7 +271,6 @@
         <div class="nav-right">
             <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
         </div>
-        <!-- UPDATED: Navigation Menu with Feedback and FAQ -->
         <nav id="nav-menu">
             <ul>
                 <li><a href="#home">Home</a></li>
@@ -301,7 +314,6 @@
         </div>
     </section>
 
-    <!-- UPDATED: Client Thread with Reduced Gap & Slimmer Shape -->
     <div class="client-thread">
         <div class="thread-track">
             <div class="marquee-content">
@@ -336,7 +348,8 @@
         <h2 style="font-size: 2rem;">2026 <span>Showreel</span></h2>
         
         <div class="showreel-video-wrapper">
-            <video src="Jobayer Hossan.mp4" autoplay loop muted playsinline controls></video>
+            <!-- UPDATED: Video AutoPlay Removed and Controls Added -->
+            <video src="Jobayer Hossan.mp4" controls playsinline preload="metadata"></video>
         </div>
     </section>
 
@@ -613,8 +626,9 @@
             return 'https://images.pexels.com/photos/2912996/pexels-photo-2912996.jpeg';
         }
 
+        // UPDATED: Inline style added to iframe to ensure it stays 100% full width and height
         window.playCustomVideo = function(element, url) {
-            element.innerHTML = `<iframe src="${url}?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+            element.innerHTML = `<iframe src="${url}?autoplay=1" allow="autoplay; fullscreen" allowfullscreen style="width: 100%; height: 100%; border: none; display: block;"></iframe>`;
             element.classList.remove('custom-player');
             element.style.cursor = 'default';
         };
